@@ -10,6 +10,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import logico.ConexionDB;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -18,20 +22,25 @@ import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
 
 public class CrearModificarGrupos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTable table;
+	private JTextField txtAsignatura;
+	public static JTable Horarios;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CrearModificarGrupos dialog = new CrearModificarGrupos();
+			CrearModificarGrupos dialog = new CrearModificarGrupos("ICC-133");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -42,7 +51,7 @@ public class CrearModificarGrupos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearModificarGrupos() {
+	public CrearModificarGrupos(String asignatura) {
 		setModal(true);
 		setSize(422, 490);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -65,9 +74,10 @@ public class CrearModificarGrupos extends JDialog {
 			contentPanel.add(lblNewLabel_1);
 		}
 		{
-			JComboBox comboBox = new JComboBox();
-			comboBox.setBounds(127, 101, 183, 22);
-			contentPanel.add(comboBox);
+			JComboBox periodoAcademico = new JComboBox();
+			periodoAcademico.setBounds(127, 101, 183, 22);
+			contentPanel.add(periodoAcademico);
+			llenarComboBox(periodoAcademico);
 		}
 		{
 			JLabel lblNewLabel_2 = new JLabel("Asignatura:");
@@ -75,10 +85,12 @@ public class CrearModificarGrupos extends JDialog {
 			contentPanel.add(lblNewLabel_2);
 		}
 		{
-			textField = new JTextField();
-			textField.setBounds(127, 156, 183, 20);
-			contentPanel.add(textField);
-			textField.setColumns(10);
+			txtAsignatura = new JTextField();
+			txtAsignatura.setEditable(false);
+			txtAsignatura.setText(asignatura);
+			txtAsignatura.setBounds(127, 156, 183, 20);
+			contentPanel.add(txtAsignatura);
+			txtAsignatura.setColumns(10);
 		}
 		{
 			JLabel lblNewLabel_3 = new JLabel("Cupo:");
@@ -87,6 +99,7 @@ public class CrearModificarGrupos extends JDialog {
 		}
 		
 		JSpinner spinner = new JSpinner();
+		spinner.setModel(new SpinnerNumberModel(30, 1, 50, 1));
 		spinner.setBounds(127, 205, 183, 20);
 		contentPanel.add(spinner);
 		{
@@ -99,8 +112,10 @@ public class CrearModificarGrupos extends JDialog {
 			scrollPane.setBounds(127, 258, 183, 90);
 			contentPanel.add(scrollPane);
 			{
-				table = new JTable();
-				scrollPane.setViewportView(table);
+				Horarios = new JTable();
+				DefaultTableModel model = new DefaultTableModel(new Object[][] {}, new String[] {"Dia", "Inicio", "Fin"});
+				scrollPane.setViewportView(Horarios);
+				Horarios.setModel(model);
 			}
 		}
 		{
@@ -127,10 +142,6 @@ public class CrearModificarGrupos extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Insertar");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -141,5 +152,33 @@ public class CrearModificarGrupos extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		
+	}
+	public void llenarComboBox(JComboBox<String> comboBox) {
+        Connection con = ConexionDB.getConnection();
+        if (con != null) {
+            String sql = "SELECT DISTINCT CodPeriodoAcad FROM Grupo";
+            try (Statement stmt = con.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                // Llena el comboBox con los periodos académicos
+                while (rs.next()) {
+                    comboBox.addItem(rs.getString("CodPeriodoAcad"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error en la conexión");
+        }
+    }
+	public static void actualizarTabla(JTable table, String dia, String inicio, String fin) {
+	    // Obtiene el modelo de la tabla
+	    DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+	    // Crea un nuevo renglón con los valores recibidos
+	    Object[] newRow = {dia, inicio, fin};
+
+	    // Añade el nuevo renglón al modelo de la tabla
+	    model.addRow(newRow);
 	}
 }
