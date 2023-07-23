@@ -25,6 +25,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -42,16 +43,16 @@ public class CrearModificarGrupos extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtAsignatura;
 	public static JTable Horarios;
-	JComboBox periodoAcademico = new JComboBox();
 	JSpinner cupo = new JSpinner();
 	String horarioReducido="";
+	private JTextField txtPeriodo;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			CrearModificarGrupos dialog = new CrearModificarGrupos("ISC-205-T");
+			CrearModificarGrupos dialog = new CrearModificarGrupos("ISC-205-T","2020-2021/3");
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -62,7 +63,8 @@ public class CrearModificarGrupos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearModificarGrupos(String asignatura) {
+	public CrearModificarGrupos(String asignatura, String periodo) {
+		setTitle("Grupo");
 		setModal(true);
 		setSize(422, 490);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -83,12 +85,6 @@ public class CrearModificarGrupos extends JDialog {
 			JLabel lblNewLabel_1 = new JLabel("Periodo:");
 			lblNewLabel_1.setBounds(60, 105, 70, 14);
 			contentPanel.add(lblNewLabel_1);
-		}
-		{
-			periodoAcademico = new JComboBox();
-			periodoAcademico.setBounds(127, 101, 183, 22);
-			contentPanel.add(periodoAcademico);
-			llenarComboBox(periodoAcademico);
 		}
 		{
 			JLabel lblNewLabel_2 = new JLabel("Asignatura:");
@@ -152,6 +148,13 @@ public class CrearModificarGrupos extends JDialog {
 			contentPanel.add(btnNewButton_1);
 		}
 		{
+			txtPeriodo = new JTextField();
+			txtPeriodo.setEditable(false);
+			txtPeriodo.setBounds(127, 102, 183, 20);
+			contentPanel.add(txtPeriodo);
+			txtPeriodo.setColumns(10);
+		}
+		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -163,12 +166,9 @@ public class CrearModificarGrupos extends JDialog {
 						if(Horarios.getRowCount()==0) {
 							JOptionPane.showMessageDialog(null, "Debe agregar al menos un horario", "Error", JOptionPane.ERROR_MESSAGE);
 						}else {
-							if(!existeHorario(periodoAcademico.getSelectedItem().toString(),formatHorario(Horarios))) {
 						insertarGrupo();
 						JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-							}else {
-								JOptionPane.showMessageDialog(null, "Este grupo posee conflictos de horario con otro", "Error", JOptionPane.ERROR_MESSAGE);
-							}
+						dispose();
 						}
 					}
 				});
@@ -188,7 +188,9 @@ public class CrearModificarGrupos extends JDialog {
 			}
 		}
 		
+		txtPeriodo.setText(periodo);
 	}
+	
 	public void llenarComboBox(JComboBox<String> comboBox) {
         Connection con = ConexionDB.getConnection();
         if (con != null) {
@@ -233,9 +235,9 @@ public class CrearModificarGrupos extends JDialog {
 	            String sql = "INSERT INTO Grupo (CodPeriodoAcad, CodAsignatura, NumGrupo, CupoGrupo, Horario) VALUES (?, ?, ?, ?, ?)";
 	            PreparedStatement ps = con.prepareStatement(sql);
 
-	            ps.setString(1, periodoAcademico.getSelectedItem().toString());
+	            ps.setString(1, txtPeriodo.getText());
 	            ps.setString(2, txtAsignatura.getText());
-	            ps.setString(3, "007");
+	            ps.setString(3, String.format("%03d",getMaxNumGrupo()+1));
 	            ps.setInt(4, (Integer) cupo.getValue());
 	            ps.setString(5, formatHorario(Horarios));
 
@@ -325,24 +327,32 @@ public class CrearModificarGrupos extends JDialog {
 	    // Devuelve la cadena de horario
 	    return horario.toString().trim();
 	}
+	
+	public int getMaxNumGrupo() {
+		Connection con = ConexionDB.getConnection();
+
+	    int maxNumGrupo = 0;
+
+	        String query = "SELECT MAX(CAST(NumGrupo AS INT)) AS MaxNumGrupo FROM Grupo";
+	        Statement stmt;
+			try {
+				stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery(query);
+
+		        if (rs.next()) {
+		            maxNumGrupo = rs.getInt("MaxNumGrupo");
+		        }
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	    
+
+	    return maxNumGrupo;
+	}
 
 	
-	public boolean existeHorario(String periodoAcademico, String horario) {
-	    Connection con = ConexionDB.getConnection();
-	    String sql = "SELECT * FROM Grupo WHERE CodPeriodoAcad = ? AND Horario = ?";
 
-	    try {
-	        PreparedStatement ps = con.prepareStatement(sql);
-	        ps.setString(1, periodoAcademico);
-	        ps.setString(2, horario);
-	        ResultSet rs = ps.executeQuery();
-	        if (rs.next()) {
-	            return true;
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
-	    return false;
-	}
 	
 }
