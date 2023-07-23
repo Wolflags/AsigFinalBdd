@@ -153,6 +153,7 @@ public class Estudiante extends JDialog {
 			JButton btnNewButton = new JButton("Agregar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 				}
 			});
 			buttonPane.add(btnNewButton);
