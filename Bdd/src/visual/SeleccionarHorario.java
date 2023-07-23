@@ -8,12 +8,14 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
@@ -149,8 +151,24 @@ public class SeleccionarHorario extends JDialog {
 							
 							String diasemana = diaSemanaCmb.getSelectedItem().toString();
 							if (!diasemana.equalsIgnoreCase("<Seleccionar>")){
-								CrearModificarGrupos.actualizarTabla(CrearModificarGrupos.Horarios, diasemana, horainicial, horafinal);
-								dispose();
+								try {
+									if(!verificarConflictos(CrearModificarGrupos.Horarios, diasemana, horainicial, horafinal)) {
+										if(!verificarDatos(CrearModificarGrupos.Horarios, diasemana, horainicial, horafinal)) {
+											CrearModificarGrupos.actualizarTabla(CrearModificarGrupos.Horarios, diasemana, horainicial, horafinal);
+											dispose();
+										}else {
+											JOptionPane.showMessageDialog(null, "Este horario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+										}
+										
+										
+									}else {
+										JOptionPane.showMessageDialog(null, "Este horario tiene conflictos", "Error", JOptionPane.ERROR_MESSAGE);
+									}
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								
 							}else {
 								JOptionPane.showMessageDialog(null, "Debe seleccionar un dia", "Error", JOptionPane.ERROR_MESSAGE);
 								}
@@ -175,7 +193,37 @@ public class SeleccionarHorario extends JDialog {
 			}
 		}
 		
+		
 	}
+	public boolean verificarConflictos(JTable table, String dia, String inicio, String fin) throws Exception {
+	    DefaultTableModel model = (DefaultTableModel) table.getModel();
+	    SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+	    Date inicioDate = format.parse(inicio);
+	    Date finDate = format.parse(fin);
+	    for (int i = 0; i < model.getRowCount(); i++) {
+	        if (model.getValueAt(i, 0).equals(dia)) {
+	            Date inicioFila = format.parse((String) model.getValueAt(i, 1));
+	            Date finFila = format.parse((String) model.getValueAt(i, 2));
+	            if ((inicioDate.compareTo(inicioFila) > 0 && inicioDate.compareTo(finFila) < 0) ||
+	                (finDate.compareTo(inicioFila) > 0 && finDate.compareTo(finFila) < 0)) {
+	                return true;
+	            }
+	        }
+	    }
+
+	    return false;
+	}
+	
+	public boolean verificarDatos(JTable table, String dia, String inicio, String fin) {
+	    DefaultTableModel model = (DefaultTableModel) table.getModel();
+	    for (int i = 0; i < model.getRowCount(); i++) {
+	        if (model.getValueAt(i, 0).equals(dia) && model.getValueAt(i, 1).equals(inicio) && model.getValueAt(i, 2).equals(fin)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+
 	
 
 }
