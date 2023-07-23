@@ -150,29 +150,12 @@ public class Estudiante extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			
-			JButton btnModificar = new JButton("Modificar");
-			btnModificar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			
 			JButton btnNewButton = new JButton("Agregar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 				}
 			});
 			buttonPane.add(btnNewButton);
-			buttonPane.add(btnModificar);
-			{
-				JButton btnEliminar = new JButton("Eliminar");
-				btnEliminar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
-				btnEliminar.setActionCommand("OK");
-				buttonPane.add(btnEliminar);
-				getRootPane().setDefaultButton(btnEliminar);
-			}
 			{
 				JButton btnRegresar = new JButton("Regresar");
 				btnRegresar.setActionCommand("Cancel");
