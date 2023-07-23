@@ -60,7 +60,7 @@ public class ListarGrupos extends JDialog {
 		    int y = (screenSize.height - getHeight()-30) / 2;
 		    setLocation(x, y);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
