@@ -54,6 +54,7 @@ public class ListarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarGrupos() {
+		setModal(true);
 		setSize(806, 488);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
