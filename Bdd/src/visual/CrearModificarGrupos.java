@@ -17,6 +17,8 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CrearModificarGrupos extends JDialog {
 
@@ -103,6 +105,13 @@ public class CrearModificarGrupos extends JDialog {
 		}
 		{
 			JButton btnNewButton = new JButton("Agregar");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// Crea una nueva instancia de tu JDialog
+			        SeleccionarHorario dialog = new SeleccionarHorario();
+			        dialog.setVisible(true);
+				}
+			});
 			btnNewButton.setBounds(127, 359, 89, 23);
 			contentPanel.add(btnNewButton);
 		}
