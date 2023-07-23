@@ -61,5 +61,19 @@ public class Inicio extends JFrame {
 		btnNewButton.setBounds(83, 86, 185, 53);
 		contentPane.add(btnNewButton);
 		
+		JButton btnNewButton_1 = new JButton("Estudiantes");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Crea una nueva instancia de tu JDialog
+				Estudiante dialog = new Estudiante();
+				dialog.setVisible(true);//Muestra el JDialog
+				//Cierra el JFrame actual
+				dispose();
+			}
+		});
+		
+		btnNewButton_1.setBounds(318, 88, 185, 48);
+		contentPane.add(btnNewButton_1);
+		
 	}
 }
