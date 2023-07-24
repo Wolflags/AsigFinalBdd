@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -50,47 +52,47 @@ public class ListarEstudiantes extends JDialog {
 	 */
 	public ListarEstudiantes() {
 		setModal(true);
-		setBounds(100, 100, 1296, 526);
+		setBounds(100, 100, 860, 526);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(0, 0, 1280, 454);
+			panel.setBounds(0, 0, 844, 454);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Estudiantes");
 				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
-				lblNewLabel.setBounds(588, 46, 292, 67);
+				lblNewLabel.setBounds(274, 31, 292, 67);
 				panel.add(lblNewLabel);
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 142, 1260, 312);
+			scrollPane.setBounds(206, 142, 432, 312);
 			panel.add(scrollPane);
 			
 			table = new JTable();
 			table.setModel(new DefaultTableModel(
 				new Object[][] {
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null, null, null},
+					{null, null},
+					{null, null},
+					{null, null},
+					{null, null},
+					{null, null},
+					{null, null},
+					{null, null},
+					{null, null},
 				},
 				new String[] {
-					"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+					"New column", "New column"
 				}
 			));
 			scrollPane.setViewportView(table);
 			
 			JLabel lblNewLabel_1 = new JLabel("Buscar Estudiante:");
-			lblNewLabel_1.setBounds(23, 117, 114, 14);
+			lblNewLabel_1.setBounds(84, 114, 114, 14);
 			panel.add(lblNewLabel_1);
 			{
 		
@@ -101,7 +103,7 @@ public class ListarEstudiantes extends JDialog {
 						actualizarTablaEstudiante(table);
 					}
 				});
-				txtEstudiante.setBounds(131, 114, 245, 20);
+				txtEstudiante.setBounds(208, 111, 245, 20);
 				panel.add(txtEstudiante);
 				txtEstudiante.setColumns(10);
 			}
@@ -116,6 +118,7 @@ public class ListarEstudiantes extends JDialog {
 			}
 			{
 				JButton okButton = new JButton("Eliminar");
+				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -142,17 +145,19 @@ public class ListarEstudiantes extends JDialog {
         Connection con = ConexionDB.getConnection();
         if (con != null) {
         	String estudiante = "";
-        	if(txtEstudiante!=null) {
-        	estudiante = txtEstudiante.getText();
+        	if (txtEstudiante != null) {
+        	    estudiante = txtEstudiante.getText();
         	}
-        	
-            String sql = "SELECT Id as 'Matricula', Nombre1 as 'Nombre', Nombre2 as 'Segundo Nombre', Apellido1 as 'Apellido', Apellido2 as 'Segundo Apellido', Carrera, CategoriaPago as 'Pago',Nacionalidad, Direccion, FechaNacimiento as 'Fecha de Nacimiento' FROM Estudiante ";
-   
-            if (!estudiante.isEmpty()) {//si el txtEstudiante no esta vacia entonces...
-               //verifica si el valor ingresado esta en una de las columnas
-                sql += "WHERE Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
-            }
 
+        	// Aquí se agrega la cláusula WHERE al inicio de la consulta si el campo estudiante no está vacío
+        	String sql = "SELECT E.Id,(SELECT * FROM dbo.FormatoNombre(E.Id)) AS Nombre FROM Estudiante E";
+
+        	if (!estudiante.isEmpty()) {
+        	    // Si el campo estudiante no está vacío, agregamos la condición de búsqueda
+        	    sql += " WHERE Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
+        	}
+
+        
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 // Obtén los metadatos del ResultSet
@@ -181,4 +186,21 @@ public class ListarEstudiantes extends JDialog {
             System.out.println("Error en la conexión");
         }
     }
+	
+	public void eliminarEstudiante (String Id) {
+		 Connection con = ConexionDB.getConnection();
+	        if (con != null) {
+	        	
+	            String sql = "DELETE FROM Estudiante WHERE Id= '"+ Id+"'";
+	            try (Statement stmt = con.createStatement()) {
+	                stmt.executeUpdate(sql);
+	                System.out.println("Estudiante eliminado correctamente.");
+	            } catch (SQLException e) {
+	                e.printStackTrace();
+	            }
+	        } else {
+	            System.out.println("Error en la conexión");
+	        }
+	}
 }
+
