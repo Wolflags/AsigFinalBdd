@@ -17,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 import logico.ConexionDB;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -27,7 +29,7 @@ import java.awt.event.ActionEvent;
 public class ListarEstudiantes extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
+	private JTextField txtEstudiante;
 	private JTable table;
 
 	/**
@@ -48,25 +50,25 @@ public class ListarEstudiantes extends JDialog {
 	 */
 	public ListarEstudiantes() {
 		setModal(true);
-		setBounds(100, 100, 580, 485);
+		setBounds(100, 100, 1296, 526);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(0, 0, 564, 413);
+			panel.setBounds(0, 0, 1280, 454);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Estudiantes");
 				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
-				lblNewLabel.setBounds(147, 25, 292, 67);
+				lblNewLabel.setBounds(588, 46, 292, 67);
 				panel.add(lblNewLabel);
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 142, 544, 247);
+			scrollPane.setBounds(10, 142, 1260, 312);
 			panel.add(scrollPane);
 			
 			table = new JTable();
@@ -91,10 +93,17 @@ public class ListarEstudiantes extends JDialog {
 			lblNewLabel_1.setBounds(23, 117, 114, 14);
 			panel.add(lblNewLabel_1);
 			{
-				textField = new JTextField();
-				textField.setBounds(131, 114, 183, 20);
-				panel.add(textField);
-				textField.setColumns(10);
+		
+				txtEstudiante = new JTextField();
+				txtEstudiante.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyReleased(KeyEvent e) {
+						actualizarTablaEstudiante(table);
+					}
+				});
+				txtEstudiante.setBounds(131, 114, 245, 20);
+				panel.add(txtEstudiante);
+				txtEstudiante.setColumns(10);
 			}
 		}
 		{
@@ -126,18 +135,24 @@ public class ListarEstudiantes extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
+		actualizarTablaEstudiante(table);
 	}
 	
-	/*public void actualizarTabla(JTable table) {
+	public void actualizarTablaEstudiante(JTable table) {
         Connection con = ConexionDB.getConnection();
         if (con != null) {
-        	String asignatura = "";
-        	if(txtAsignatura!=null) {
-        	asignatura = txtAsignatura.getText();
+        	String estudiante = "";
+        	if(txtEstudiante!=null) {
+        	estudiante = txtEstudiante.getText();
         	}
         	
-            String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo FROM Grupo WHERE CodPeriodoAcad='"+periodoAcademico.getSelectedItem()+"' AND CodAsignatura LIKE '%"+asignatura+"%' ORDER BY NumGrupo";
+            String sql = "SELECT Id as 'Matricula', Nombre1 as 'Nombre', Nombre2 as 'Segundo Nombre', Apellido1 as 'Apellido', Apellido2 as 'Segundo Apellido', Carrera, CategoriaPago as 'Pago',Nacionalidad, Direccion, FechaNacimiento as 'Fecha de Nacimiento' FROM Estudiante ";
    
+            if (!estudiante.isEmpty()) {//si el txtEstudiante no esta vacia entonces...
+               //verifica si el valor ingresado esta en una de las columnas
+                sql += "WHERE Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
+            }
+
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 // Obtén los metadatos del ResultSet
@@ -165,5 +180,5 @@ public class ListarEstudiantes extends JDialog {
         } else {
             System.out.println("Error en la conexión");
         }
-    }*/
+    }
 }
