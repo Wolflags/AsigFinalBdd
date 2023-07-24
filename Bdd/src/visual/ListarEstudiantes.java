@@ -13,7 +13,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import logico.ConexionDB;
+
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class ListarEstudiantes extends JDialog {
@@ -119,4 +127,43 @@ public class ListarEstudiantes extends JDialog {
 			}
 		}
 	}
+	
+	/*public void actualizarTabla(JTable table) {
+        Connection con = ConexionDB.getConnection();
+        if (con != null) {
+        	String asignatura = "";
+        	if(txtAsignatura!=null) {
+        	asignatura = txtAsignatura.getText();
+        	}
+        	
+            String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo FROM Grupo WHERE CodPeriodoAcad='"+periodoAcademico.getSelectedItem()+"' AND CodAsignatura LIKE '%"+asignatura+"%' ORDER BY NumGrupo";
+   
+            try (Statement stmt = con.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                // Obtén los metadatos del ResultSet
+                ResultSetMetaData rsmd = rs.getMetaData();
+                // El modelo de la tabla
+                DefaultTableModel model = new DefaultTableModel();
+                // Llena el modelo con los nombres de las columnas
+                int columnCount = rsmd.getColumnCount();
+                for (int i = 1; i <= columnCount; i++) {
+                    model.addColumn(rsmd.getColumnName(i));
+                }
+                // Llena el modelo con los registros
+                while (rs.next()) {
+                    Object[] row = new Object[columnCount];
+                    for (int i = 1; i <= columnCount; i++) {
+                        row[i - 1] = rs.getObject(i);
+                    }
+                    model.addRow(row);
+                }
+                // Asigna el modelo a la tabla
+                table.setModel(model);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error en la conexión");
+        }
+    }*/
 }

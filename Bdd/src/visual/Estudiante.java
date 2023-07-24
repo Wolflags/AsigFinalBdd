@@ -189,36 +189,7 @@ public class Estudiante extends JDialog {
 			}
 		}
 	}
-	/*public void insertarEstudiante() {
-	    Connection con = ConexionDB.getConnection();
 
-	    if (con != null) {
-	        try {
-	            String sql = "INSERT INTO Estudiante (Id, Nombre1, Nombre2, Apellido1, Apellido2, Carrera, CategoriaPago,Nacionalidad,Direccion,FechaNacimiento) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)";
-	            PreparedStatement ps = con.prepareStatement(sql);
-
-	            ps.setString(1, txtNombre1.getText() );
-	            ps.setString(2, txtNombre2.getText());
-	            ps.setString(3, txtApellido1.getText());
-	            ps.setString(4, txtApellido2.getText());
-	            ps.setString(5, txtId.getText());
-	            ps.setString(6, txtCarrera.getText());
-	            ps.setString(7, txtNacionalidad.getText());
-	            ps.setString(8, txtDireccion.getText());
-	            ps.setString(9, txtFechaNacimiento.getText());
-	            ps.setString(10, (String) cbxCategoriaPago.getSelectedItem());
-
-
-	            ps.executeUpdate();
-
-	            ps.close();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    } else {
-	        System.out.println("Error en la conexión");
-	    }
-	}*/
 	
 	public void insertarEstudiante() {
 	    Connection con = ConexionDB.getConnection();
