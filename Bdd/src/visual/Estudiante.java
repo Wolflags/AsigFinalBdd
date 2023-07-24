@@ -8,11 +8,20 @@ import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+
+import logico.ConexionDB;
+
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -20,14 +29,16 @@ import javax.swing.DefaultComboBoxModel;
 public class Estudiante extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField txtId;
+	private JTextField txtNombre1;
+	private JTextField txtNombre2;
+	private JTextField txtApellido1;
+	private JTextField txtApellido2;
+	private JTextField txtCarrera;
+	private JTextField txtNacionalidad;
+	private JTextField txtDireccion;
+	private JTextField txtFechaNacimiento;
+	JComboBox cbxCategoriaPago = new JComboBox();
 
 	/**
 	 * Launch the application.
@@ -68,82 +79,91 @@ public class Estudiante extends JDialog {
 		lblNewLabel.setBounds(10, 94, 57, 14);
 		panel.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 91, 103, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		txtId = new JTextField();
+		txtId.setBounds(66, 91, 103, 20);
+		panel.add(txtId);
+		txtId.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
 		lblNewLabel_1.setBounds(10, 14, 57, 14);
 		panel.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(66, 11, 103, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		txtNombre1 = new JTextField();
+		txtNombre1.setBounds(66, 11, 103, 20);
+		panel.add(txtNombre1);
+		txtNombre1.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Nombre:");
 		lblNewLabel_2.setBounds(208, 14, 103, 14);
 		panel.add(lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(321, 11, 124, 20);
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		txtNombre2 = new JTextField();
+		txtNombre2.setBounds(321, 11, 124, 20);
+		panel.add(txtNombre2);
+		txtNombre2.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido:");
 		lblNewLabel_3.setBounds(10, 55, 46, 14);
 		panel.add(lblNewLabel_3);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(66, 52, 103, 20);
-		panel.add(textField_3);
-		textField_3.setColumns(10);
+		txtApellido1 = new JTextField();
+		txtApellido1.setBounds(66, 52, 103, 20);
+		panel.add(txtApellido1);
+		txtApellido1.setColumns(10);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Segundo Apellido:");
 		lblNewLabel_2_1.setBounds(208, 55, 103, 14);
 		panel.add(lblNewLabel_2_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(321, 52, 124, 20);
-		panel.add(textField_4);
-		textField_4.setColumns(10);
+		txtApellido2 = new JTextField();
+		txtApellido2.setBounds(321, 52, 124, 20);
+		panel.add(txtApellido2);
+		txtApellido2.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Carrera:");
 		lblNewLabel_4.setBounds(208, 94, 46, 14);
 		panel.add(lblNewLabel_4);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(264, 91, 163, 20);
-		panel.add(textField_5);
-		textField_5.setColumns(10);
+		txtCarrera = new JTextField();
+		txtCarrera.setBounds(264, 91, 163, 20);
+		panel.add(txtCarrera);
+		txtCarrera.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria de Pago:");
-		lblNewLabel_5.setBounds(10, 226, 103, 14);
+		lblNewLabel_5.setBounds(10, 259, 103, 14);
 		panel.add(lblNewLabel_5);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Transacción", "Efectivo"}));
-		comboBox.setBounds(123, 222, 129, 22);
-		panel.add(comboBox);
+		cbxCategoriaPago = new JComboBox();
+		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"Tra", "Efe"}));
+		cbxCategoriaPago.setBounds(123, 255, 129, 22);
+		panel.add(cbxCategoriaPago);
 		
 		JLabel lblNewLabel_6 = new JLabel("Nacionalidad:");
 		lblNewLabel_6.setBounds(10, 132, 78, 14);
 		panel.add(lblNewLabel_6);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(91, 129, 266, 20);
-		panel.add(textField_6);
-		textField_6.setColumns(10);
+		txtNacionalidad = new JTextField();
+		txtNacionalidad.setBounds(91, 129, 266, 20);
+		panel.add(txtNacionalidad);
+		txtNacionalidad.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Dirección:");
 		lblNewLabel_7.setBounds(10, 178, 67, 14);
 		panel.add(lblNewLabel_7);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(91, 175, 266, 20);
-		panel.add(textField_7);
-		textField_7.setColumns(10);
+		txtDireccion = new JTextField();
+		txtDireccion.setBounds(91, 175, 266, 20);
+		panel.add(txtDireccion);
+		txtDireccion.setColumns(10);
+		
+		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento:");
+		lblNewLabel_8.setBounds(10, 218, 114, 14);
+		panel.add(lblNewLabel_8);
+		
+		txtFechaNacimiento = new JTextField();
+		txtFechaNacimiento.setBounds(143, 215, 219, 20);
+		panel.add(txtFechaNacimiento);
+		txtFechaNacimiento.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -154,7 +174,12 @@ public class Estudiante extends JDialog {
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-				}
+					insertarEstudiante();
+					JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+					}
+					
+				
 			});
 			buttonPane.add(btnNewButton);
 			{
@@ -164,4 +189,72 @@ public class Estudiante extends JDialog {
 			}
 		}
 	}
+	/*public void insertarEstudiante() {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	        try {
+	            String sql = "INSERT INTO Estudiante (Id, Nombre1, Nombre2, Apellido1, Apellido2, Carrera, CategoriaPago,Nacionalidad,Direccion,FechaNacimiento) VALUES (?, ?, ?, ?, ?,?,?,?,?,?)";
+	            PreparedStatement ps = con.prepareStatement(sql);
+
+	            ps.setString(1, txtNombre1.getText() );
+	            ps.setString(2, txtNombre2.getText());
+	            ps.setString(3, txtApellido1.getText());
+	            ps.setString(4, txtApellido2.getText());
+	            ps.setString(5, txtId.getText());
+	            ps.setString(6, txtCarrera.getText());
+	            ps.setString(7, txtNacionalidad.getText());
+	            ps.setString(8, txtDireccion.getText());
+	            ps.setString(9, txtFechaNacimiento.getText());
+	            ps.setString(10, (String) cbxCategoriaPago.getSelectedItem());
+
+
+	            ps.executeUpdate();
+
+	            ps.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}*/
+	
+	public void insertarEstudiante() {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	        try {
+	            String sql = "INSERT INTO Estudiante (Id, Nombre1, Nombre2, Apellido1, Apellido2, Carrera, CategoriaPago, Nacionalidad, Direccion, FechaNacimiento) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	            PreparedStatement ps = con.prepareStatement(sql);
+
+	            ps.setString(1, txtId.getText());
+	            ps.setString(2, txtNombre1.getText());
+	            ps.setString(3, txtNombre2.getText());
+	            ps.setString(4, txtApellido1.getText());
+	            ps.setString(5, txtApellido2.getText());
+	            ps.setString(6, txtCarrera.getText());
+	            ps.setString(7, (String) cbxCategoriaPago.getSelectedItem());
+	            ps.setString(8, txtNacionalidad.getText());
+	            ps.setString(9, txtDireccion.getText());
+	            
+	            // Convertir la fecha de nacimiento a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate = dateFormat.parse(txtFechaNacimiento.getText());
+	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	            ps.setDate(10, sqlDate);
+
+	           
+
+	            ps.executeUpdate();
+
+	            ps.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+
 }
