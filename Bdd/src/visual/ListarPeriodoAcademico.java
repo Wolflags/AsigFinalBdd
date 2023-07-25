@@ -110,13 +110,18 @@ public class ListarPeriodoAcademico extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				JButton btnModificar = new JButton("Modificar");
+				btnModificar.setActionCommand("OK");
+				buttonPane.add(btnModificar);
+			}
+			{
+				JButton okButton = new JButton("Eliminar");
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Regresar");
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
