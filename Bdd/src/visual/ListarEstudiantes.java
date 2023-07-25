@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -67,13 +68,13 @@ public class ListarEstudiantes extends JDialog {
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Estudiantes");
-				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
-				lblNewLabel.setBounds(274, 31, 292, 67);
+				lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+				lblNewLabel.setBounds(357, 33, 292, 67);
 				panel.add(lblNewLabel);
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(94, 142, 849, 301);
+			scrollPane.setBounds(10, 142, 933, 301);
 			panel.add(scrollPane);
 			
 			table = new JTable();
@@ -95,6 +96,7 @@ public class ListarEstudiantes extends JDialog {
 			scrollPane.setViewportView(table);
 			
 			JLabel lblNewLabel_1 = new JLabel("Buscar Estudiante:");
+			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblNewLabel_1.setBounds(84, 114, 114, 14);
 			panel.add(lblNewLabel_1);
 			{
@@ -122,6 +124,18 @@ public class ListarEstudiantes extends JDialog {
 			}
 			{
 				  JButton okButton = new JButton("Eliminar");
+				  okButton.addActionListener(new ActionListener() {
+				  	public void actionPerformed(ActionEvent e) {
+				  		int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String id = (String) table.getValueAt(selectedRow, 0);
+		                    deleteFrom(id);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                }
+		                actualizarTablaEstudiante(table);
+				  	}
+				  });
 				    
 				
 				okButton.setActionCommand("OK");
@@ -144,6 +158,7 @@ public class ListarEstudiantes extends JDialog {
 			}
 		}
 		actualizarTablaEstudiante(table);
+		
 	}
 	
 	public void actualizarTablaEstudiante(JTable table) {
@@ -159,7 +174,7 @@ public class ListarEstudiantes extends JDialog {
 
         	if (!estudiante.isEmpty()) {
         	    // Si el campo estudiante no está vacío, agregamos la condición de búsqueda
-        	    sql += " WHERE Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
+        	    sql += " WHERE Id LIKE '%" + estudiante + "%' OR Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
         	}
 
         
@@ -192,20 +207,24 @@ public class ListarEstudiantes extends JDialog {
         }
     }
 	
-	/*public void eliminarEstudiante (String Id) {
-		 Connection con = ConexionDB.getConnection();
-	        if (con != null) {
-	        	
-	            String sql = "DELETE FROM Estudiante WHERE Id= '"+ Id+"'";
-	            try (Statement stmt = con.createStatement()) {
-	                stmt.executeUpdate(sql);
-	                System.out.println("Estudiante eliminado correctamente.");
-	            } catch (SQLException e) {
-	                e.printStackTrace();
-	            }
-	        } else {
-	            System.out.println("Error en la conexión");
-	        }
-	}*/
+	private void deleteFrom(String id) {
+		String deleteQuery = "DELETE FROM Estudiante WHERE Id = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, id);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún registro para eliminar.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
+        }
+    }
 }
 

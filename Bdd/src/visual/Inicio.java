@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
 
 public class Inicio extends JFrame {
 
@@ -36,14 +37,15 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
+		setTitle("Academico");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 setSize(1375, 725);
+		 setSize(1377, 725);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
 		    setLocation(x, y);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -102,7 +104,7 @@ public class Inicio extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_3.setBounds(83, 196, 185, 53);
+		btnNewButton_3.setBounds(83, 208, 185, 53);
 		contentPane.add(btnNewButton_3);
 		
 	}

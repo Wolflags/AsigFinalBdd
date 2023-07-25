@@ -9,10 +9,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -24,6 +27,8 @@ import javax.swing.table.DefaultTableModel;
 
 import logico.ConexionDB;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListarPeriodoAcademico extends JDialog {
 
@@ -48,25 +53,28 @@ public class ListarPeriodoAcademico extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarPeriodoAcademico() {
+		setTitle("Periodo Académico");
 		setModal(true);
-		setBounds(100, 100, 923, 517);
+		setBounds(100, 100, 1339, 517);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(0, 0, 907, 441);
+			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBounds(0, 0, 1323, 441);
+			setLocationRelativeTo(null);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			
 			JLabel lblNewLabel = new JLabel("Periodo");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
-			lblNewLabel.setBounds(322, 11, 194, 72);
+			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+			lblNewLabel.setBounds(578, 26, 194, 72);
 			panel.add(lblNewLabel);
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 110, 887, 300);
+			scrollPane.setBounds(10, 110, 1303, 300);
 			panel.add(scrollPane);
 			{
 				table = new JTable();
@@ -88,7 +96,8 @@ public class ListarPeriodoAcademico extends JDialog {
 			}
 			{
 				JLabel lblNewLabel_1 = new JLabel("Periodo:");
-				lblNewLabel_1.setBounds(10, 88, 46, 14);
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+				lblNewLabel_1.setBounds(10, 82, 62, 14);
 				panel.add(lblNewLabel_1);
 			}
 			{
@@ -99,7 +108,7 @@ public class ListarPeriodoAcademico extends JDialog {
 						actualizarTablaPeriodo(table);
 					}
 				});
-				txtAcademico.setBounds(66, 85, 86, 20);
+				txtAcademico.setBounds(82, 79, 86, 20);
 				panel.add(txtAcademico);
 				txtAcademico.setColumns(10);
 			}
@@ -116,6 +125,18 @@ public class ListarPeriodoAcademico extends JDialog {
 			}
 			{
 				JButton okButton = new JButton("Eliminar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String codPeriodoAcademico = (String) table.getValueAt(selectedRow, 0);
+		                    deleteFrom(codPeriodoAcademico);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                }
+		                actualizarTablaPeriodo(table);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -137,7 +158,7 @@ public class ListarPeriodoAcademico extends JDialog {
         	}
 
         	
-        	String sql = "SELECT PA.CodPeriodoAcad, PA.Descripcion,PA.FechaInicio as 'Fecha Inicio', PA.FechaFin as 'Fecha Fin', PA.FechaInicioClases as 'Inicio de Clases', PA.FechaFinClases as 'Fin de Clases', PA.FechaLimitePago as 'Limite de Pago', PA.FechaLimitePrematricula as 'Limite de Prematricula',PA.FechaLimiteRetiro as 'Limite de Retiro', PA.FechaLimitePublicacionCalif as 'Limite de Notas' FROM PeriodoAcademico PA ";
+        	String sql = "SELECT PA.CodPeriodoAcad as 'Periodo', PA.Descripcion as 'Ciclo',PA.FechaInicio as 'P-Inicio', PA.FechaFin as 'P-Fin', PA.FechaInicioClases as 'Inicio de Clases', PA.FechaFinClases as 'Fin de Clases', PA.FechaLimitePago as 'Limite de Pago', PA.FechaLimitePrematricula as 'Limite de Prematricula',PA.FechaLimiteRetiro as 'Limite de Retiro', PA.FechaLimitePublicacionCalif as 'Limite de Notas' FROM PeriodoAcademico PA ";
 
         	 if (!academico.isEmpty()) {
                  // Si el campo periodo (academico) no está vacío, agregamos la condición de búsqueda
@@ -174,6 +195,25 @@ public class ListarPeriodoAcademico extends JDialog {
             }
         } else {
             System.out.println("Error en la conexión");
+        }
+    }
+	private void deleteFrom(String codPeriodoAcademico) {
+		String deleteQuery = "DELETE FROM PeriodoAcademico WHERE CodPeriodoAcademico = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, codPeriodoAcademico);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún registro para eliminar.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
         }
     }
 }

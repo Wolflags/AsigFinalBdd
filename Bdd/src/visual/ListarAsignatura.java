@@ -8,10 +8,13 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -24,6 +27,9 @@ import javax.swing.table.DefaultTableModel;
 import logico.ConexionDB;
 
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
 
 public class ListarAsignatura extends JDialog {
 
@@ -48,6 +54,7 @@ public class ListarAsignatura extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarAsignatura() {
+		setTitle("Asignaturas");
 		setModal(true);
 		setBounds(100, 100, 764, 450);
 		getContentPane().setLayout(new BorderLayout());
@@ -56,13 +63,15 @@ public class ListarAsignatura extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(0, 0, 748, 378);
+			setLocationRelativeTo(null);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
 				JLabel lblNewLabel = new JLabel("Asignaturas");
-				lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
-				lblNewLabel.setBounds(235, 11, 272, 61);
+				lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+				lblNewLabel.setBounds(252, 11, 272, 61);
 				panel.add(lblNewLabel);
 			}
 			
@@ -90,6 +99,7 @@ public class ListarAsignatura extends JDialog {
 			scrollPane.setViewportView(table);
 			
 			JLabel lblNewLabel_1 = new JLabel("Buscar Asignatura:");
+			lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
 			lblNewLabel_1.setBounds(10, 82, 110, 14);
 			panel.add(lblNewLabel_1);
 			
@@ -106,6 +116,7 @@ public class ListarAsignatura extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -116,6 +127,18 @@ public class ListarAsignatura extends JDialog {
 			}
 			{
 				JButton btnEliminar = new JButton("Eliminar");
+				btnEliminar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String codAsignatura = (String) table.getValueAt(selectedRow, 0);
+		                    deleteFrom(codAsignatura);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                }
+		        		actualizarTablaAsignatura(table);
+					}
+				});
 				btnEliminar.setActionCommand("Cancel");
 				buttonPane.add(btnEliminar);
 			}
@@ -170,6 +193,25 @@ public class ListarAsignatura extends JDialog {
             }
         } else {
             System.out.println("Error en la conexión");
+        }
+    }
+	private void deleteFrom(String codAsignatura) {
+		String deleteQuery = "DELETE FROM Asignatura WHERE CodAsignatura = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, codAsignatura);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún registro para eliminar.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
         }
     }
 }

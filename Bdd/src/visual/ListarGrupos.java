@@ -56,6 +56,7 @@ public class ListarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarGrupos() {
+		setTitle("Grupos");
 		setModal(true);
 		setSize(806, 488);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -153,15 +154,17 @@ public class ListarGrupos extends JDialog {
 		llenarComboBox(periodoAcademico);
 		
 		JLabel lblNewLabel = new JLabel("Periodo Academico:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setBounds(410, 130, 125, 14);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("GRUPOS");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 50));
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 50));
 		lblNewLabel_1.setBounds(304, 11, 209, 95);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Buscar Asignatura:");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_2.setBounds(124, 130, 117, 14);
 		panel.add(lblNewLabel_2);
 		
