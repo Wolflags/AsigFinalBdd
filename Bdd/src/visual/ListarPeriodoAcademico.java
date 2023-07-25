@@ -10,6 +10,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -91,6 +93,12 @@ public class ListarPeriodoAcademico extends JDialog {
 			}
 			{
 				txtAcademico = new JTextField();
+				txtAcademico.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyReleased(KeyEvent e) {
+						actualizarTablaPeriodo(table);
+					}
+				});
 				txtAcademico.setBounds(66, 85, 86, 20);
 				panel.add(txtAcademico);
 				txtAcademico.setColumns(10);
