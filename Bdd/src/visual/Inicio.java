@@ -72,8 +72,26 @@ public class Inicio extends JFrame {
 			}
 		});
 		
+		btnNewButton_1.setBounds(318, 86, 185, 50);
+		contentPane.add(btnNewButton_1);
+		
+	
+		
 		btnNewButton_1.setBounds(318, 88, 185, 48);
 		contentPane.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Periodo Academico");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Crea una nueva instancia de tu JDialog
+				PeriodoAcademico dialog = new PeriodoAcademico();
+				dialog.setVisible(true);//Muestra el JDialog
+				//Cierra el JFrame actual
+				dispose();
+			}
+		});
+		btnNewButton_2.setBounds(545, 88, 164, 51);
+		contentPane.add(btnNewButton_2);
 		
 	}
 }
