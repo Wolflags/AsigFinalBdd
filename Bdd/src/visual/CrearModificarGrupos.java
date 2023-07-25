@@ -256,21 +256,13 @@ public class CrearModificarGrupos extends JDialog {
 	
 
 	public String formatHorario(JTable table) {
-	    // Crea una lista para almacenar los horarios
 	    List<String> horarios = new ArrayList<>();
-
-	    // Recorre todas las filas de la tabla
 	    for (int i = 0; i < table.getRowCount(); i++) {
-	        // Obtiene el día, la hora de inicio y la hora de fin de la fila
 	        String dia = (String) table.getValueAt(i, 0);
 	        String inicio = (String) table.getValueAt(i, 1);
 	        String fin = (String) table.getValueAt(i, 2);
-
-	        // Convierte las horas de inicio y fin a sus formatos abreviados
 	        String inicioAbreviado = inicio.split(":")[0];
 	        String finAbreviado = fin.split(":")[0];
-
-	        // Convierte el día a su abreviatura
 	        String diaAbreviado = "";
 	        switch (dia) {
 	            case "Lunes":
@@ -295,11 +287,7 @@ public class CrearModificarGrupos extends JDialog {
 	                diaAbreviado = "Do";
 	                break;
 	        }
-
-	        // Crea el horario de la fila
 	        String horarioFila = inicioAbreviado + "-" + finAbreviado;
-
-	        // Busca el horario en la lista de horarios
 	        int index = -1;
 	        for (int j = 0; j < horarios.size(); j++) {
 	            if (horarios.get(j).startsWith(horarioFila)) {
@@ -307,24 +295,17 @@ public class CrearModificarGrupos extends JDialog {
 	                break;
 	            }
 	        }
-
-	        // Si el horario ya está en la lista, añade el día a ese horario
 	        if (index != -1) {
 	            horarios.set(index, horarios.get(index) + diaAbreviado);
 	        }
-	        // Si el horario no está en la lista, añade un nuevo horario a la lista
 	        else {
 	            horarios.add(horarioFila + diaAbreviado);
 	        }
 	    }
-
-	    // Crea un StringBuilder para construir la cadena de horario
 	    StringBuilder horario = new StringBuilder();
 	    for (String h : horarios) {
 	        horario.append(h).append(" ");
 	    }
-
-	    // Devuelve la cadena de horario
 	    return horario.toString().trim();
 	}
 	
