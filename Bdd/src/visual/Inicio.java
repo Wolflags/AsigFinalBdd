@@ -93,5 +93,17 @@ public class Inicio extends JFrame {
 		btnNewButton_2.setBounds(545, 88, 164, 51);
 		contentPane.add(btnNewButton_2);
 		
+		JButton btnNewButton_3 = new JButton("Asignaturas");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Asignatura dialog = new Asignatura();
+				dialog.setVisible(true);//Muestra el JDialog
+				//Cierra el JFrame actual
+				dispose();
+			}
+		});
+		btnNewButton_3.setBounds(83, 196, 185, 53);
+		contentPane.add(btnNewButton_3);
+		
 	}
 }

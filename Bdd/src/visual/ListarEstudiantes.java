@@ -62,6 +62,7 @@ public class ListarEstudiantes extends JDialog {
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(0, 0, 953, 454);
+			setLocationRelativeTo(null);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
