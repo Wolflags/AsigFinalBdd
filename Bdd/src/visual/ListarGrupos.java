@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -102,6 +104,18 @@ public class ListarGrupos extends JDialog {
 			buttonPane.add(btnNewButton);
 			{
 				JButton okButton = new JButton("Eliminar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String numGrupoToDelete = (String) table.getValueAt(selectedRow, 0);
+		                    deleteFrom(numGrupoToDelete);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                }
+		                actualizarTabla(table);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
@@ -201,6 +215,26 @@ public class ListarGrupos extends JDialog {
             }
         } else {
             System.out.println("Error en la conexión");
+        }
+    }
+	
+	private void deleteFrom(String numGrupoToDelete) {
+		String deleteQuery = "DELETE FROM Grupo WHERE NumGrupo = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, numGrupoToDelete);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró ningún registro para eliminar.");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
         }
     }
 	
