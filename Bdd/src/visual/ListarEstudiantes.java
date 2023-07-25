@@ -27,6 +27,7 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.border.TitledBorder;
 
 public class ListarEstudiantes extends JDialog {
 
@@ -52,14 +53,15 @@ public class ListarEstudiantes extends JDialog {
 	 */
 	public ListarEstudiantes() {
 		setModal(true);
-		setBounds(100, 100, 860, 526);
+		setBounds(100, 100, 969, 526);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
-			panel.setBounds(0, 0, 844, 454);
+			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			panel.setBounds(0, 0, 953, 454);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
@@ -70,7 +72,7 @@ public class ListarEstudiantes extends JDialog {
 			}
 			
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(206, 142, 432, 312);
+			scrollPane.setBounds(94, 142, 849, 301);
 			panel.add(scrollPane);
 			
 			table = new JTable();
@@ -110,6 +112,7 @@ public class ListarEstudiantes extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
@@ -117,7 +120,8 @@ public class ListarEstudiantes extends JDialog {
 				buttonPane.add(btnNewButton);
 			}
 			{
-				JButton okButton = new JButton("Eliminar");
+				  JButton okButton = new JButton("Eliminar");
+				    
 				
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -149,8 +153,8 @@ public class ListarEstudiantes extends JDialog {
         	    estudiante = txtEstudiante.getText();
         	}
 
-        	// Aquí se agrega la cláusula WHERE al inicio de la consulta si el campo estudiante no está vacío
-        	String sql = "SELECT E.Id,(SELECT * FROM dbo.FormatoNombre(E.Id)) AS Nombre FROM Estudiante E";
+        	
+        	String sql = "SELECT E.Id,(SELECT * FROM dbo.FormatoNombre(E.Id)) AS Nombre , E.Carrera, E.CategoriaPago AS 'Categoria de Pago', E.Nacionalidad, E.Direccion, E.FechaNacimiento AS 'Fecha de Nacimiento' FROM Estudiante E";
 
         	if (!estudiante.isEmpty()) {
         	    // Si el campo estudiante no está vacío, agregamos la condición de búsqueda
@@ -187,7 +191,7 @@ public class ListarEstudiantes extends JDialog {
         }
     }
 	
-	public void eliminarEstudiante (String Id) {
+	/*public void eliminarEstudiante (String Id) {
 		 Connection con = ConexionDB.getConnection();
 	        if (con != null) {
 	        	
@@ -201,6 +205,6 @@ public class ListarEstudiantes extends JDialog {
 	        } else {
 	            System.out.println("Error en la conexión");
 	        }
-	}
+	}*/
 }
 
