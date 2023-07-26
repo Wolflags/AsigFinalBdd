@@ -18,6 +18,10 @@ import logico.ConexionDB;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -45,7 +49,7 @@ public class Estudiante extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			Estudiante dialog = new Estudiante();
+			Estudiante dialog = new Estudiante(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,7 +60,7 @@ public class Estudiante extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public Estudiante() {
+	public Estudiante(String idEstudiante) {
 		setModal(true);
 		//setSize(450,360);
 		/* Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -134,7 +138,7 @@ public class Estudiante extends JDialog {
 		panel.add(lblNewLabel_5);
 		
 		cbxCategoriaPago = new JComboBox();
-		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"Tra", "Efe"}));
+		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"TRA", "EFE"}));
 		cbxCategoriaPago.setBounds(123, 255, 129, 22);
 		panel.add(cbxCategoriaPago);
 		
@@ -169,7 +173,7 @@ public class Estudiante extends JDialog {
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			
+			if(idEstudiante==null) {
 			JButton btnNewButton = new JButton("Agregar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -182,11 +186,28 @@ public class Estudiante extends JDialog {
 				
 			});
 			buttonPane.add(btnNewButton);
+		}else{
+			JButton btnNewButton = new JButton("Modificar");
+			btnNewButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					updateEstudiante(idEstudiante);
+					JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+					}
+					
+				
+			});
+			buttonPane.add(btnNewButton);
+		}
 			{
 				JButton btnRegresar = new JButton("Regresar");
 				btnRegresar.setActionCommand("Cancel");
 				buttonPane.add(btnRegresar);
 			}
+		}
+		if(idEstudiante!=null) {
+		cargarEstudiante(idEstudiante);
 		}
 	}
 
@@ -227,5 +248,89 @@ public class Estudiante extends JDialog {
 	        System.out.println("Error en la conexión");
 	    }
 	}
+	
+	public void updateEstudiante(String matricula) {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	        try {
+	            String sql = "UPDATE Estudiante SET Id = ?, Nombre1 = ?, Nombre2 = ?, Apellido1 = ?, Apellido2 = ?, Carrera = ?, CategoriaPago = ?, Nacionalidad = ?, Direccion = ?, FechaNacimiento = ? WHERE Id='" + matricula + "'";
+	            PreparedStatement ps = con.prepareStatement(sql);
+
+	            ps.setString(1, txtId.getText());
+	            ps.setString(2, txtNombre1.getText());
+	            ps.setString(3, txtNombre2.getText());
+	            ps.setString(4, txtApellido1.getText());
+	            ps.setString(5, txtApellido2.getText());
+	            ps.setString(6, txtCarrera.getText());
+	            ps.setString(7, (String) cbxCategoriaPago.getSelectedItem());
+	            ps.setString(8, txtNacionalidad.getText());
+	            ps.setString(9, txtDireccion.getText());
+	            
+	            // Convertir la fecha de nacimiento a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate = dateFormat.parse(txtFechaNacimiento.getText());
+	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	            ps.setDate(10, sqlDate);
+
+	           
+
+	            ps.executeUpdate();
+
+	            ps.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+	
+	public void cargarEstudiante(String matricula) {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	            String sql = "SELECT Nombre1,Nombre2,Apellido1,Apellido2,Id,Carrera,Nacionalidad,Direccion,FechaNacimiento,CategoriaPago FROM Estudiante WHERE Id='" + matricula + "'";
+	            try (Statement stmt = con.createStatement();
+	                    ResultSet rs = stmt.executeQuery(sql)) {
+	                   ResultSetMetaData rsmd = rs.getMetaData();
+	                   
+	                   while (rs.next()) {
+	                       
+	                           String nombre1 = (String) rs.getObject(1);
+	                           txtNombre1.setText(nombre1);
+	                           String nombre2 = (String) rs.getObject(2);
+	                           txtNombre2.setText(nombre2);
+	                           String apellido1 = (String) rs.getObject(3);
+	                           txtApellido1.setText(apellido1);
+	                           String apellido2 = (String) rs.getObject(4);
+	                           txtApellido2.setText(apellido2);
+	                           String matriculas = (String) rs.getObject(5);
+	                           txtId.setText(matriculas);
+	                           String carrera = (String) rs.getObject(6);
+	                           txtCarrera.setText(carrera);
+	                           String nacionalidad = (String) rs.getObject(7);
+	                           txtNacionalidad.setText(nacionalidad);
+	                           String direccion = (String) rs.getObject(8);
+	                           txtDireccion.setText(direccion);
+	                           //String fechanacim = (String) rs.getObject(9);
+	                           //txtFechaNacimiento.setText(fechanacim);
+	                           if(((String) rs.getObject(10))!=null) {
+	                           if(((String) rs.getObject(10)).equalsIgnoreCase("TRA")) {
+	                        	   cbxCategoriaPago.setSelectedIndex(0);
+	                           }else {
+	                        	   cbxCategoriaPago.setSelectedIndex(1);
+	                           }
+	                           }
+	                   }
+	               } catch (SQLException e) {
+	                   e.printStackTrace();
+	               }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+	
+	
 
 }

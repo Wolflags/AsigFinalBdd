@@ -126,7 +126,7 @@ public class Inicio extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Crea una nueva instancia de tu JDialog
-				Estudiante dialog = new Estudiante();
+				Estudiante dialog = new Estudiante(null);
 				dialog.setVisible(true);//Muestra el JDialog
 				//Cierra el JFrame actual
 				

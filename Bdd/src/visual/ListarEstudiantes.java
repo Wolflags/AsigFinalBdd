@@ -125,10 +125,14 @@ public class ListarEstudiantes extends JDialog {
 				JButton btnNewButton = new JButton("Modificar");
 				btnNewButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//Crea una nueva instancia de tu JDialog
-						Modificar dialog = new Modificar(null);
-						dialog.setVisible(true);//Muestra el JDialog
-						//Cierra el JFrame actual
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String idest = (String) table.getValueAt(selectedRow, 0);
+		                    Estudiante dialog = new Estudiante(idest);
+							dialog.setVisible(true);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                }
 					}
 				});
 				buttonPane.add(btnNewButton);
