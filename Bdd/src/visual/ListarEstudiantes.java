@@ -35,6 +35,7 @@ public class ListarEstudiantes extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtEstudiante;
 	private JTable table;
+	
 
 	/**
 	 * Launch the application.
@@ -53,6 +54,8 @@ public class ListarEstudiantes extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarEstudiantes() {
+		
+
 		setModal(true);
 		setBounds(100, 100, 969, 526);
 		getContentPane().setLayout(new BorderLayout());
@@ -120,6 +123,14 @@ public class ListarEstudiantes extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnNewButton = new JButton("Modificar");
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						//Crea una nueva instancia de tu JDialog
+						Modificar dialog = new Modificar(null);
+						dialog.setVisible(true);//Muestra el JDialog
+						//Cierra el JFrame actual
+					}
+				});
 				buttonPane.add(btnNewButton);
 			}
 			{
@@ -225,6 +236,10 @@ public class ListarEstudiantes extends JDialog {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
         }
-    }
+	}
+
+
+	
+
 }
 
