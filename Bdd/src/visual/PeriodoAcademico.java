@@ -383,13 +383,37 @@ public class PeriodoAcademico extends JDialog {
 	                           txtDescripcion.setText(descripcion);
 	                         
 	                          
-	                           java.sql.Date fechaSql = rs.getDate("Fecha Inicio");
+	                           java.sql.Date fechaSql = rs.getDate("Fecha Inicio:");
 	   	                    if (fechaSql != null) {
 	   	                        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fecha.format(fechaSql);
 	   	                     txtFechaIni.setText(fechaFormateada);
 	   	                    }
 	                          
+	   	                 java.sql.Date fechafin = rs.getDate("Fecha Fin:");
+	   	                    if (fechafin != null) {
+	   	                        SimpleDateFormat fechaf = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechaf.format(fechafin);
+	   	                     txtFechaFin.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechainicioC = rs.getDate("Inicio de Clases:");
+	   	                    if (fechainicioC != null) {
+	   	                        SimpleDateFormat fechaini = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechaini.format(fechainicioC);
+	   	                     txtIniClases.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechafinC = rs.getDate("Fin de Clases:");
+	   	                    if (fechafinC != null) {
+	   	                        SimpleDateFormat fechafini = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechafini.format(fechafinC);
+	   	                     txtFinClases.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechaPago = rs.getDate("Fecha Límite de Pago:");
+	   	                    if (fechaPago != null) {
+	   	                        SimpleDateFormat fechapag = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechapag.format(fechaPago);
+	   	                     txtLimitePago.setText(fechaFormateada);
+	   	                    }
 	                   }
 	               } catch (SQLException e) {
 	                   e.printStackTrace();
