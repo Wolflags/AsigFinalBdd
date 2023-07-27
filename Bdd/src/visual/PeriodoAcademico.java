@@ -53,106 +53,108 @@ public class PeriodoAcademico extends JDialog {
 	 * Create the dialog.
 	 */
 	public PeriodoAcademico() {
+		setTitle("Periodo Académico");
 		setModal(true);
-		setBounds(100, 100, 510, 547);
+		setBounds(100, 100, 469, 547);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 494, 471);
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(0, 0, 460, 471);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Periodo Academico:");
-		lblNewLabel.setBounds(21, 11, 109, 14);
+		JLabel lblNewLabel = new JLabel("Periodo Académico:");
+		lblNewLabel.setBounds(21, 11, 147, 14);
 		panel.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1 = new JLabel("Descripcion:");
-		lblNewLabel_1.setBounds(21, 54, 69, 14);
+		JLabel lblNewLabel_1 = new JLabel("Descripción:");
+		lblNewLabel_1.setBounds(21, 57, 109, 14);
 		panel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Inicio de Clases:");
-		lblNewLabel_2.setBounds(21, 138, 89, 14);
+		lblNewLabel_2.setBounds(21, 176, 109, 14);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Fecha Inicio:");
-		lblNewLabel_3.setBounds(21, 97, 62, 14);
+		lblNewLabel_3.setBounds(21, 98, 109, 14);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Fin de Clases:");
-		lblNewLabel_4.setBounds(237, 138, 79, 14);
+		lblNewLabel_4.setBounds(21, 216, 109, 14);
 		panel.add(lblNewLabel_4);
 		
 		txtPeriodoAca = new JTextField();
-		txtPeriodoAca.setBounds(118, 8, 139, 20);
+		txtPeriodoAca.setBounds(218, 11, 139, 20);
 		panel.add(txtPeriodoAca);
 		txtPeriodoAca.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Fecha Fin:");
-		lblNewLabel_5.setBounds(237, 97, 62, 14);
+		lblNewLabel_5.setBounds(21, 136, 109, 14);
 		panel.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_6 = new JLabel("Fecha Limite de Pago:");
-		lblNewLabel_6.setBounds(21, 181, 119, 14);
+		JLabel lblNewLabel_6 = new JLabel("Fecha Límite de Pago:");
+		lblNewLabel_6.setBounds(21, 258, 147, 14);
 		panel.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_7 = new JLabel("Fecha Limite de Prematricula:");
-		lblNewLabel_7.setBounds(21, 219, 150, 14);
+		JLabel lblNewLabel_7 = new JLabel("Fecha Límite de Prematricula:");
+		lblNewLabel_7.setBounds(21, 303, 187, 14);
 		panel.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel("Fecha Limite de Retiro:");
-		lblNewLabel_8.setBounds(21, 265, 119, 14);
+		JLabel lblNewLabel_8 = new JLabel("Fecha Límite de Retiro:");
+		lblNewLabel_8.setBounds(21, 342, 165, 14);
 		panel.add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("Fecha Limite de Publicacion de Notas:");
-		lblNewLabel_9.setBounds(21, 314, 187, 14);
+		JLabel lblNewLabel_9 = new JLabel("Fecha Límite de Publicación:");
+		lblNewLabel_9.setBounds(21, 387, 165, 14);
 		panel.add(lblNewLabel_9);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(118, 51, 157, 20);
+		txtDescripcion.setBounds(218, 54, 139, 20);
 		panel.add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 		
 		txtFechaIni = new JTextField();
-		txtFechaIni.setBounds(118, 91, 97, 20);
+		txtFechaIni.setBounds(218, 95, 139, 20);
 		panel.add(txtFechaIni);
 		txtFechaIni.setColumns(10);
 		
 		txtFechaFin = new JTextField();
 		txtFechaFin.setColumns(10);
-		txtFechaFin.setBounds(316, 94, 97, 20);
+		txtFechaFin.setBounds(218, 133, 139, 20);
 		panel.add(txtFechaFin);
 		
 		txtIniClases = new JTextField();
 		txtIniClases.setColumns(10);
-		txtIniClases.setBounds(120, 135, 97, 20);
+		txtIniClases.setBounds(218, 176, 139, 20);
 		panel.add(txtIniClases);
 		
 		txtFinClases = new JTextField();
 		txtFinClases.setColumns(10);
-		txtFinClases.setBounds(316, 135, 97, 20);
+		txtFinClases.setBounds(218, 216, 139, 20);
 		panel.add(txtFinClases);
 		
 		txtLimitePago = new JTextField();
 		txtLimitePago.setColumns(10);
-		txtLimitePago.setBounds(135, 178, 97, 20);
+		txtLimitePago.setBounds(218, 258, 139, 20);
 		panel.add(txtLimitePago);
 		
 		txtLimitePrematricula = new JTextField();
 		txtLimitePrematricula.setColumns(10);
-		txtLimitePrematricula.setBounds(168, 216, 97, 20);
+		txtLimitePrematricula.setBounds(218, 300, 139, 20);
 		panel.add(txtLimitePrematricula);
 		
 		txtLimiteRetiro = new JTextField();
 		txtLimiteRetiro.setColumns(10);
-		txtLimiteRetiro.setBounds(147, 262, 97, 20);
+		txtLimiteRetiro.setBounds(218, 339, 139, 20);
 		panel.add(txtLimiteRetiro);
 		
 		txtNotas = new JTextField();
 		txtNotas.setColumns(10);
-		txtNotas.setBounds(204, 311, 97, 20);
+		txtNotas.setBounds(218, 384, 139, 20);
 		panel.add(txtNotas);
 		{
 			JPanel buttonPane = new JPanel();

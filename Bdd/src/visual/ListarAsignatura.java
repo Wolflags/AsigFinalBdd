@@ -121,6 +121,19 @@ public class ListarAsignatura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Modificar");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String codAsignatura = (String) table.getValueAt(selectedRow, 0);
+		                    Asignatura dialog = new Asignatura(codAsignatura);
+							dialog.setVisible(true);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para modificar.");
+		                }
+		                actualizarTablaAsignatura(table);
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

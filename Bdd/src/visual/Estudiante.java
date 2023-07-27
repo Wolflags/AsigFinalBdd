@@ -166,9 +166,7 @@ public class Estudiante extends JDialog {
 		panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		
-		//JTextArea txtDireccion = new JTextArea();
-		//txtDireccion.setBounds(66, 173, 245, 22);
-		//panel.add(txtDireccion);
+		
 		txtDireccion = new JTextArea();
         txtDireccion.setBounds(91, 173, 245, 22);
         panel.add(txtDireccion);

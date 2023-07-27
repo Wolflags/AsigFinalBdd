@@ -131,7 +131,7 @@ public class ListarEstudiantes extends JDialog {
 		                    Estudiante dialog = new Estudiante(idest);
 							dialog.setVisible(true);
 		                } else {
-		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para modificar.");
 		                }
 		                actualizarTablaEstudiante(table);
 					}
