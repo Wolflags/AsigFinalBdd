@@ -214,6 +214,11 @@ public class PeriodoAcademico extends JDialog {
 				JButton btnRegresar = new JButton("Regresar");
 				btnRegresar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						// Crea una nueva instancia de tu JDialog
+				        Inicio dialog = new Inicio();
+				        dialog.setVisible(true); // Muestra el JDialog
+				        // Cierra el JFrame actual
+				        dispose();
 					}
 				});
 				btnRegresar.setActionCommand("Cancel");

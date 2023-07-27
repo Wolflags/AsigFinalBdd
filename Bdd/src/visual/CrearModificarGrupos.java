@@ -209,7 +209,7 @@ public class CrearModificarGrupos extends JDialog {
 				getRootPane().setDefaultButton(insertar);
 			}
 			{
-				JButton cancelButton = new JButton("Cancelar");
+				JButton cancelButton = new JButton("Regresar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

@@ -168,6 +168,15 @@ public class ListarPeriodoAcademico extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Regresar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						// Crea una nueva instancia de tu JDialog
+				        Inicio dialog = new Inicio();
+				        dialog.setVisible(true); // Muestra el JDialog
+				        // Cierra el JFrame actual
+				        dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

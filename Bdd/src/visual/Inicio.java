@@ -65,7 +65,7 @@ public class Inicio extends JFrame {
 		btnNewButton.setSelectedIcon(null);
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setIcon(null);
+		btnNewButton.setIcon(new ImageIcon(Inicio.class.getResource("/Images/examen5.png")));
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
