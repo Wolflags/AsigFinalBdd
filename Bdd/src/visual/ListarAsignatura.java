@@ -57,7 +57,7 @@ public class ListarAsignatura extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarAsignatura() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarAsignatura.class.getResource("/Images/Boton.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(ListarAsignatura.class.getResource("/Images/Boton.png")));
 		setTitle("Asignaturas");
 		setModal(true);
 		setSize(764, 450);
