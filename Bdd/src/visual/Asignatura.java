@@ -59,7 +59,7 @@ public class Asignatura extends JDialog {
 	 * Create the dialog.
 	 */
 	public Asignatura(String codAsignatura) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Asignatura.class.getResource("/Images/Boton.png")));
+		//setIconImage(Toolkit.getDefaultToolkit().getImage(Asignatura.class.getResource("/Images/Boton.png")));
 		setTitle("Asignaturas");
 		setModal(true);
 		setSize(519, 289);
