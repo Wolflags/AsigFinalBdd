@@ -31,6 +31,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import java.awt.Font;
 
 public class Estudiante extends JDialog {
 
@@ -66,7 +67,7 @@ public class Estudiante extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Estudiante.class.getResource("/Images/estudiante4.png")));
 		setTitle("Estudiante");
 		setModal(true);
-		setSize(573,388);
+		setSize(573,468);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
@@ -80,100 +81,105 @@ public class Estudiante extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(0, 0, 557, 312);
+		panel.setBounds(0, 0, 557, 392);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Matrícula:");
-		lblNewLabel.setBounds(10, 94, 71, 14);
+		lblNewLabel.setBounds(10, 177, 71, 14);
 		panel.add(lblNewLabel);
 		
 		txtId = new JTextField();
-		txtId.setBounds(91, 91, 124, 20);
+		txtId.setBounds(91, 174, 124, 20);
 		panel.add(txtId);
 		txtId.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(10, 14, 71, 14);
+		lblNewLabel_1.setBounds(10, 97, 71, 14);
 		panel.add(lblNewLabel_1);
 		
 		txtNombre1 = new JTextField();
-		txtNombre1.setBounds(91, 11, 124, 20);
+		txtNombre1.setBounds(91, 94, 124, 20);
 		panel.add(txtNombre1);
 		txtNombre1.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Nombre:");
-		lblNewLabel_2.setBounds(294, 14, 119, 14);
+		lblNewLabel_2.setBounds(294, 97, 119, 14);
 		panel.add(lblNewLabel_2);
 		
 		txtNombre2 = new JTextField();
-		txtNombre2.setBounds(423, 11, 124, 20);
+		txtNombre2.setBounds(423, 94, 124, 20);
 		panel.add(txtNombre2);
 		txtNombre2.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido:");
-		lblNewLabel_3.setBounds(10, 55, 71, 14);
+		lblNewLabel_3.setBounds(10, 138, 71, 14);
 		panel.add(lblNewLabel_3);
 		
 		txtApellido1 = new JTextField();
-		txtApellido1.setBounds(91, 52, 124, 20);
+		txtApellido1.setBounds(91, 135, 124, 20);
 		panel.add(txtApellido1);
 		txtApellido1.setColumns(10);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Segundo Apellido:");
-		lblNewLabel_2_1.setBounds(294, 55, 119, 14);
+		lblNewLabel_2_1.setBounds(294, 138, 119, 14);
 		panel.add(lblNewLabel_2_1);
 		
 		txtApellido2 = new JTextField();
-		txtApellido2.setBounds(423, 52, 124, 20);
+		txtApellido2.setBounds(423, 135, 124, 20);
 		panel.add(txtApellido2);
 		txtApellido2.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Carrera:");
-		lblNewLabel_4.setBounds(294, 94, 119, 14);
+		lblNewLabel_4.setBounds(294, 177, 119, 14);
 		panel.add(lblNewLabel_4);
 		
 		txtCarrera = new JTextField();
-		txtCarrera.setBounds(423, 91, 124, 20);
+		txtCarrera.setBounds(423, 174, 124, 20);
 		panel.add(txtCarrera);
 		txtCarrera.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria de Pago:");
-		lblNewLabel_5.setBounds(10, 259, 133, 14);
+		lblNewLabel_5.setBounds(10, 342, 133, 14);
 		panel.add(lblNewLabel_5);
 		
 		cbxCategoriaPago = new JComboBox();
 		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"TRA", "EFE"}));
-		cbxCategoriaPago.setBounds(153, 255, 129, 22);
+		cbxCategoriaPago.setBounds(153, 338, 129, 22);
 		panel.add(cbxCategoriaPago);
 		
 		JLabel lblNewLabel_6 = new JLabel("Nacionalidad:");
-		lblNewLabel_6.setBounds(10, 132, 103, 14);
+		lblNewLabel_6.setBounds(10, 215, 103, 14);
 		panel.add(lblNewLabel_6);
 		
 		txtNacionalidad = new JTextField();
-		txtNacionalidad.setBounds(123, 129, 266, 20);
+		txtNacionalidad.setBounds(123, 212, 266, 20);
 		panel.add(txtNacionalidad);
 		txtNacionalidad.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Dirección:");
-		lblNewLabel_7.setBounds(10, 178, 78, 14);
+		lblNewLabel_7.setBounds(10, 261, 78, 14);
 		panel.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento:");
-		lblNewLabel_8.setBounds(10, 218, 124, 14);
+		lblNewLabel_8.setBounds(10, 301, 124, 14);
 		panel.add(lblNewLabel_8);
 		
 		txtFechaNacimiento = new JTextField();
-		txtFechaNacimiento.setBounds(143, 215, 219, 20);
+		txtFechaNacimiento.setBounds(143, 298, 219, 20);
 		panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		
 		
 		txtDireccion = new JTextArea();
 		txtDireccion.setBackground(new Color(192, 192, 192));
-        txtDireccion.setBounds(91, 173, 245, 22);
+        txtDireccion.setBounds(91, 256, 245, 22);
         panel.add(txtDireccion);
+        
+        JLabel lblNewLabel_9 = new JLabel("Estudiante");
+        lblNewLabel_9.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+        lblNewLabel_9.setBounds(169, 11, 322, 54);
+        panel.add(lblNewLabel_9);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));

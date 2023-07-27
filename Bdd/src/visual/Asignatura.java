@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.Font;
 
 public class Asignatura extends JDialog {
 
@@ -61,7 +62,7 @@ public class Asignatura extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Asignatura.class.getResource("/Images/Boton.png")));
 		setTitle("Asignaturas");
 		setModal(true);
-		setSize(519, 226);
+		setSize(519, 289);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
@@ -74,51 +75,56 @@ public class Asignatura extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(0, 0, 503, 151);
+		panel.setBounds(0, 0, 503, 213);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Código de Asignatura:");
-		lblNewLabel.setBounds(10, 11, 137, 14);
+		lblNewLabel.setBounds(10, 79, 137, 14);
 		panel.add(lblNewLabel);
 		
 		txtcodAsig = new JTextField();
-		txtcodAsig.setBounds(157, 8, 193, 20);
+		txtcodAsig.setBounds(157, 76, 193, 20);
 		panel.add(txtcodAsig);
 		txtcodAsig.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(10, 48, 75, 14);
+		lblNewLabel_1.setBounds(10, 116, 75, 14);
 		panel.add(lblNewLabel_1);
 		
 		txtNombre = new JTextField();
-		txtNombre.setBounds(157, 45, 193, 20);
+		txtNombre.setBounds(157, 113, 193, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Créditos:");
-		lblNewLabel_2.setBounds(360, 95, 70, 14);
+		lblNewLabel_2.setBounds(360, 163, 70, 14);
 		panel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_3 = new JLabel("Horas Teóricas:");
-		lblNewLabel_3.setBounds(23, 95, 103, 14);
+		lblNewLabel_3.setBounds(23, 163, 103, 14);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Horas Prácticas:");
-		lblNewLabel_4.setBounds(186, 95, 104, 14);
+		lblNewLabel_4.setBounds(186, 163, 104, 14);
 		panel.add(lblNewLabel_4);
 		
 		 creditos = new JSpinner();
-		creditos.setBounds(440, 92, 53, 20);
+		creditos.setBounds(440, 160, 53, 20);
 		panel.add(creditos);
 		
 		teorica = new JSpinner();
-		teorica.setBounds(123, 92, 53, 20);
+		teorica.setBounds(123, 160, 53, 20);
 		panel.add(teorica);
 		
 		practica = new JSpinner();
-		practica.setBounds(297, 92, 53, 20);
+		practica.setBounds(297, 160, 53, 20);
 		panel.add(practica);
+		
+		JLabel lblNewLabel_5 = new JLabel("Asignaturas");
+		lblNewLabel_5.setFont(new Font("Times New Roman", Font.PLAIN, 50));
+		lblNewLabel_5.setBounds(138, 11, 325, 54);
+		panel.add(lblNewLabel_5);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));
