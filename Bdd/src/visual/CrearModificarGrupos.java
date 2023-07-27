@@ -68,7 +68,6 @@ public class CrearModificarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearModificarGrupos(String asignatura, String numeroGrupo) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearModificarGrupos.class.getResource("/Images/examen2.png")));
 		setTitle("Grupo");
 		setModal(true);
 		setSize(422, 490);
@@ -199,6 +198,7 @@ public class CrearModificarGrupos extends JDialog {
 						actualizarGrupo(Horarios,numeroGrupo);
 						
 						JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+						ListarGrupos.actualizarext();
 						dispose();
 						}
 					}
@@ -445,7 +445,7 @@ public class CrearModificarGrupos extends JDialog {
         	asignatura = txtAsignatura.getText();
         	}
         	
-            String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo FROM Grupo WHERE NumGrupo='"+numGrupo+"'";
+            String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo,CodPeriodoAcad FROM Grupo WHERE NumGrupo='"+numGrupo+"'";
    
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
@@ -466,21 +466,20 @@ public class CrearModificarGrupos extends JDialog {
     }
 	
 	public void llenarTablaHorarios(JTable tabla, String numGrupo) {
-		Map<String, Integer> dayMap = (Map<String, Integer>) new HashMap<String, Integer>() {{
-	        put("Lunes", 1);
-	        put("Martes", 2);
-	        put("Miercoles", 3);
-	        put("Jueves", 4);
-	        put("Viernes", 5);
-	        put("Sabado", 6);
-	        put("Domingo", 7);
-	    }};
+		Map<Integer, String> dayMap = new HashMap<Integer, String>() {{
+		    put(1, "Lunes");
+		    put(2, "Martes");
+		    put(3, "Miercoles");
+		    put(4, "Jueves");
+		    put(5, "Viernes");
+		    put(6, "Sabado");
+		    put(7, "Domingo");
+		}};
 	    
 	    Connection con = ConexionDB.getConnection();
         if (con != null) {
-            System.out.println("Conexión exitosa");
 
-            String sql = "SELECT Dia, HoraInicial, HoraFinal FROM GrupoHorario WHERE NumGrupo = ?";
+            String sql = "SELECT Dia, FORMAT(CAST(HoraInicial AS DATETIME), 'HH:mm') as HoraInicial, FORMAT(CAST(HoraFinal AS DATETIME), 'HH:mm') as HoraFinal FROM GrupoHorario WHERE NumGrupo = ?";
 
             try {
                 PreparedStatement pstmt = con.prepareStatement(sql);
@@ -494,11 +493,11 @@ public class CrearModificarGrupos extends JDialog {
                 while (rs.next()) {
                     int dia = rs.getInt("Dia");
                     String horaInicial = rs.getString("HoraInicial");
+                    System.out.println(horaInicial);
                     String horaFinal = rs.getString("HoraFinal");
-
                     model.addRow(new Object[]{dayMap.get(dia), horaInicial, horaFinal});
+                    
                 }
-
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }

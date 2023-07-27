@@ -36,9 +36,9 @@ import java.awt.Color;
 public class ListarGrupos extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTable table;
-	JComboBox periodoAcademico = new JComboBox();
-	private JTextField txtAsignatura;
+	public static JTable table;
+	static JComboBox periodoAcademico = new JComboBox();
+	private static JTextField txtAsignatura;
 
 	/**
 	 * Launch the application.
@@ -122,7 +122,9 @@ public class ListarGrupos extends JDialog {
 						int selectedRow = table.getSelectedRow();
 		                if (selectedRow != -1) {
 		                    String numGrupoToDelete = (String) table.getValueAt(selectedRow, 0);
+		                    deleteHorarios(numGrupoToDelete);
 		                    deleteFrom(numGrupoToDelete);
+		                    
 		                } else {
 		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
 		                }
@@ -194,7 +196,15 @@ public class ListarGrupos extends JDialog {
 		
 		
 	}
-	public void actualizarTabla(JTable table) {
+	public static void actualizarext() {
+		try {
+			actualizarTabla(table);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void actualizarTabla(JTable table) {
         Connection con = ConexionDB.getConnection();
         if (con != null) {
         	String asignatura = "";
@@ -268,6 +278,21 @@ public class ListarGrupos extends JDialog {
             }
         } else {
             System.out.println("Error en la conexión");
+        }
+    }
+	
+	private void deleteHorarios(String numGrupoToDelete) {
+		String deleteQuery = "DELETE FROM GrupoHorario WHERE NumGrupo = ? AND CodPeriodoAcad = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, numGrupoToDelete);
+            statement.setString(2, periodoAcademico.getSelectedItem().toString());
+            int rowsAffected = statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
         }
     }
 }
