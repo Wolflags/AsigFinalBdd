@@ -103,7 +103,15 @@ public class ListarGrupos extends JDialog {
 			JButton btnNewButton = new JButton("Modificar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					int selectedRow = table.getSelectedRow();
+	                if (selectedRow != -1) {
+	                    String numGrupoToDelete = (String) table.getValueAt(selectedRow, 0);
+	                    String AsignaturaMod = (String) table.getValueAt(selectedRow, 1);
+	                    CrearModificarGrupos dialog = new CrearModificarGrupos(AsignaturaMod,numGrupoToDelete);
+	    				dialog.setVisible(true);
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+	                }
 				}
 			});
 			buttonPane.add(btnNewButton);
