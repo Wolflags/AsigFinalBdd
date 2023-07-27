@@ -28,13 +28,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Color;
@@ -53,7 +56,7 @@ public class CrearModificarGrupos extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			CrearModificarGrupos dialog = new CrearModificarGrupos("ISC-205-T","2020-2021/3");
+			CrearModificarGrupos dialog = new CrearModificarGrupos("ISC-205-T",null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -64,7 +67,7 @@ public class CrearModificarGrupos extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CrearModificarGrupos(String asignatura, String periodo) {
+	public CrearModificarGrupos(String asignatura, String numeroGrupo) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearModificarGrupos.class.getResource("/Images/examen2.png")));
 		setTitle("Grupo");
 		setModal(true);
@@ -79,11 +82,20 @@ public class CrearModificarGrupos extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
+			if(numeroGrupo==null) {
 			JLabel lblNewLabel = new JLabel("Nuevo Grupo");
 			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 			lblNewLabel.setBounds(94, 11, 257, 58);
 			contentPanel.add(lblNewLabel);
+			}else {
+				JLabel lblNewLabel = new JLabel("Modificar");
+				lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+				lblNewLabel.setBounds(130, 11, 257, 58);
+				contentPanel.add(lblNewLabel);
+			}
+			
 		}
+		
 		{
 			JLabel lblNewLabel_1 = new JLabel("Periodo:");
 			lblNewLabel_1.setBounds(60, 105, 70, 14);
@@ -164,16 +176,32 @@ public class CrearModificarGrupos extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				
 				JButton insertar = new JButton("Insertar");
+				if(numeroGrupo!=null) {
+					insertar = new JButton("Modificar");
+				}
 				insertar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						if(numeroGrupo==null) {
 						if(Horarios.getRowCount()==0) {
 							JOptionPane.showMessageDialog(null, "Debe agregar al menos un horario", "Error", JOptionPane.ERROR_MESSAGE);
 						}else {
-						insertarGrupo();
+						insertarGrupo(Horarios);
+						
 						JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 						}
+					}else {
+						if(Horarios.getRowCount()==0) {
+							JOptionPane.showMessageDialog(null, "Debe agregar al menos un horario", "Error", JOptionPane.ERROR_MESSAGE);
+						}else {
+						actualizarGrupo(Horarios,numeroGrupo);
+						
+						JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+						dispose();
+						}
+					}
 					}
 				});
 				insertar.setActionCommand("OK");
@@ -192,7 +220,12 @@ public class CrearModificarGrupos extends JDialog {
 			}
 		}
 		
-		txtPeriodo.setText(periodo);
+		
+		if(numeroGrupo!=null) {
+			cargarDatos(Horarios,numeroGrupo);
+		}else {
+			getPeriodoAcademico();
+		}
 	}
 	
 	public void llenarComboBox(JComboBox<String> comboBox) {
@@ -231,29 +264,76 @@ public class CrearModificarGrupos extends JDialog {
 	    }
 	}
 	
-	public void insertarGrupo() {
+	public void insertarGrupo(JTable tabla) {
 	    Connection con = ConexionDB.getConnection();
 
 	    if (con != null) {
 	        try {
 	            String sql = "INSERT INTO Grupo (CodPeriodoAcad, CodAsignatura, NumGrupo, CupoGrupo, Horario) VALUES (?, ?, ?, ?, ?)";
 	            PreparedStatement ps = con.prepareStatement(sql);
-
+	            String codG = String.format("%03d",getMaxNumGrupo()+1);
 	            ps.setString(1, txtPeriodo.getText());
 	            ps.setString(2, txtAsignatura.getText());
-	            ps.setString(3, String.format("%03d",getMaxNumGrupo()+1));
+	            ps.setString(3, codG);
 	            ps.setInt(4, (Integer) cupo.getValue());
 	            ps.setString(5, formatHorario(Horarios));
 
 	            ps.executeUpdate();
 
 	            ps.close();
+	            
+	            insertarDetallesGrupo(codG,tabla);
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
 	    } else {
 	        System.out.println("Error en la conexión");
 	    }
+	}
+	
+	
+	public void insertarDetallesGrupo(String numGrupo, JTable table) {
+		Map<String, Integer> dayMap = (Map<String, Integer>) new HashMap<String, Integer>() {{
+	        put("Lunes", 1);
+	        put("Martes", 2);
+	        put("Miercoles", 3);
+	        put("Jueves", 4);
+	        put("Viernes", 5);
+	        put("Sabado", 6);
+	        put("Domingo", 7);
+	    }};
+		
+	        Connection con = ConexionDB.getConnection();
+	        if (con != null) {
+
+	        	for (int i = 0; i < table.getRowCount(); i++) {
+	                String sql = "INSERT INTO GrupoHorario (CodPeriodoAcad, CodAsignatura, NumGrupo, Dia, HoraInicial, HoraFinal) VALUES (?, ?, ?, ?, ?, ?)";
+
+	                try {
+	                    PreparedStatement pstmt = con.prepareStatement(sql);
+	                    pstmt.setString(1, txtPeriodo.getText());
+	                    pstmt.setString(2, txtAsignatura.getText());
+	                    pstmt.setString(3, numGrupo);
+
+	                    String dia = (String) table.getValueAt(i, 0); // Asume que Dia está en la columna 0
+	                    String horaInicial = (String) table.getValueAt(i, 1); // Asume que Inicio está en la columna 1
+	                    String horaFinal = (String) table.getValueAt(i, 2); // Asume que Fin está en la columna 2
+
+	                    pstmt.setInt(4, dayMap.get(dia));
+	                    pstmt.setString(5, horaInicial);
+	                    pstmt.setString(6, horaFinal);
+
+	                    int rowsAffected = pstmt.executeUpdate();
+
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                }
+	            }
+
+	        } else {
+	            System.out.println("Error en la conexión");
+	        }
+	    
 	}
 	
 	
@@ -336,8 +416,186 @@ public class CrearModificarGrupos extends JDialog {
 
 	    return maxNumGrupo;
 	}
-
 	
+	public String getPeriodoAcademico() {
+		Connection con = ConexionDB.getConnection();
+        if (con != null) {
+            String sql = "SELECT DISTINCT TOP 1 CodPeriodoAcad FROM Grupo";
+            try (Statement stmt = con.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                // Llena el comboBox con los periodos académicos
+                while (rs.next()) {
+                    txtPeriodo.setText(rs.getString("CodPeriodoAcad"));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error en la conexión");
+        }
+        return null;
+		
+	}
+	
+	public void cargarDatos(JTable tabla, String numGrupo) {
+        Connection con = ConexionDB.getConnection();
+        if (con != null) {
+        	String asignatura = "";
+        	if(txtAsignatura!=null) {
+        	asignatura = txtAsignatura.getText();
+        	}
+        	
+            String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo FROM Grupo WHERE NumGrupo='"+numGrupo+"'";
+   
+            try (Statement stmt = con.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+                ResultSetMetaData rsmd = rs.getMetaData();
+                DefaultTableModel model = new DefaultTableModel();
+                while (rs.next()) {
+                	txtPeriodo.setText(rs.getString("CodPeriodoAcad"));
+                	txtAsignatura.setText(rs.getString("CodAsignatura"));
+                	cupo.setValue(rs.getInt("CupoGrupo"));
+                	llenarTablaHorarios(tabla,numGrupo);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Error en la conexión");
+        }
+    }
+	
+	public void llenarTablaHorarios(JTable tabla, String numGrupo) {
+		Map<String, Integer> dayMap = (Map<String, Integer>) new HashMap<String, Integer>() {{
+	        put("Lunes", 1);
+	        put("Martes", 2);
+	        put("Miercoles", 3);
+	        put("Jueves", 4);
+	        put("Viernes", 5);
+	        put("Sabado", 6);
+	        put("Domingo", 7);
+	    }};
+	    
+	    Connection con = ConexionDB.getConnection();
+        if (con != null) {
+            System.out.println("Conexión exitosa");
 
+            String sql = "SELECT Dia, HoraInicial, HoraFinal FROM GrupoHorario WHERE NumGrupo = ?";
+
+            try {
+                PreparedStatement pstmt = con.prepareStatement(sql);
+                pstmt.setString(1, numGrupo);
+
+                ResultSet rs = pstmt.executeQuery();
+
+                DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                model.setRowCount(0);
+
+                while (rs.next()) {
+                    int dia = rs.getInt("Dia");
+                    String horaInicial = rs.getString("HoraInicial");
+                    String horaFinal = rs.getString("HoraFinal");
+
+                    model.addRow(new Object[]{dayMap.get(dia), horaInicial, horaFinal});
+                }
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        } else {
+            System.out.println("Error en la conexión");
+        }
+    
+	    
+	}
+	
+	public void actualizarGrupo(JTable tabla, String numGrupo) {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	        try {
+	            String sql = "UPDATE Grupo SET CodPeriodoAcad=?, CodAsignatura=?, CupoGrupo=?, Horario=? WHERE NumGrupo = ?";
+	            PreparedStatement ps = con.prepareStatement(sql);
+	            ps.setString(1, txtPeriodo.getText());
+	            ps.setString(2, txtAsignatura.getText());
+	            ps.setInt(3, (Integer) cupo.getValue());
+	            ps.setString(4, formatHorario(Horarios));
+	            ps.setString(5, numGrupo);
+
+	            ps.executeUpdate();
+
+	            ps.close();
+	            
+	            actualizarDetallesGrupo(numGrupo,tabla);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+	
+	public void actualizarDetallesGrupo(String numGrupo, JTable table) {
+		Map<String, Integer> dayMap = (Map<String, Integer>) new HashMap<String, Integer>() {{
+	        put("Lunes", 1);
+	        put("Martes", 2);
+	        put("Miercoles", 3);
+	        put("Jueves", 4);
+	        put("Viernes", 5);
+	        put("Sabado", 6);
+	        put("Domingo", 7);
+	    }};
+		
+	        Connection con = ConexionDB.getConnection();
+	        if (con != null) {
+	        	deleteFrom(numGrupo);
+
+	        	for (int i = 0; i < table.getRowCount(); i++) {
+	                String sql = "INSERT INTO GrupoHorario (CodPeriodoAcad, CodAsignatura, NumGrupo, Dia, HoraInicial, HoraFinal) VALUES (?, ?, ?, ?, ?, ?)";
+
+	                try {
+	                    PreparedStatement pstmt = con.prepareStatement(sql);
+	                    pstmt.setString(1, txtPeriodo.getText());
+	                    pstmt.setString(2, txtAsignatura.getText());
+	                    pstmt.setString(3, numGrupo);
+
+	                    String dia = (String) table.getValueAt(i, 0); // Asume que Dia está en la columna 0
+	                    String horaInicial = (String) table.getValueAt(i, 1); // Asume que Inicio está en la columna 1
+	                    String horaFinal = (String) table.getValueAt(i, 2); // Asume que Fin está en la columna 2
+
+	                    pstmt.setInt(4, dayMap.get(dia));
+	                    pstmt.setString(5, horaInicial);
+	                    pstmt.setString(6, horaFinal);
+
+	                    int rowsAffected = pstmt.executeUpdate();
+
+	                } catch (SQLException e) {
+	                    System.out.println(e.getMessage());
+	                }
+	            }
+
+	        } else {
+	            System.out.println("Error en la conexión");
+	        }
+	    
+	}
+	
+	private void deleteFrom(String numGrupoToDelete) {
+		String deleteQuery = "DELETE FROM GrupoHorario WHERE NumGrupo = ? AND CodPeriodoAcad = ? AND CodAsignatura = ?";
+
+        try (Connection connection = ConexionDB.getConnection();
+             PreparedStatement statement = connection.prepareStatement(deleteQuery)) {
+
+            statement.setString(1, numGrupoToDelete);
+            statement.setString(2, txtPeriodo.getText());
+            statement.setString(3, txtAsignatura.getText());
+            int rowsAffected = statement.executeUpdate();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
+        }
+    }
+	
 	
 }

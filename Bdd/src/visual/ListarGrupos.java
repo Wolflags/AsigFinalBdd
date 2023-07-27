@@ -57,7 +57,6 @@ public class ListarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarGrupos() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarGrupos.class.getResource("/Images/examen2.png")));
 		setTitle("Grupos");
 		setModal(true);
 		setSize(806, 488);
@@ -104,6 +103,7 @@ public class ListarGrupos extends JDialog {
 			JButton btnNewButton = new JButton("Modificar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 				}
 			});
 			buttonPane.add(btnNewButton);
