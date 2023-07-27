@@ -77,7 +77,7 @@ public class CrearModificarGrupos extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nuevo Grupo");
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
+			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 			lblNewLabel.setBounds(74, 11, 257, 58);
 			contentPanel.add(lblNewLabel);
 		}

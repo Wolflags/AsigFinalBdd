@@ -29,6 +29,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 public class Estudiante extends JDialog {
 
@@ -40,8 +41,8 @@ public class Estudiante extends JDialog {
 	private JTextField txtApellido2;
 	private JTextField txtCarrera;
 	private JTextField txtNacionalidad;
-	private JTextField txtDireccion;
 	private JTextField txtFechaNacimiento;
+	private JTextArea txtDireccion;
 	JComboBox cbxCategoriaPago = new JComboBox();
 
 	/**
@@ -61,13 +62,14 @@ public class Estudiante extends JDialog {
 	 * Create the dialog.
 	 */
 	public Estudiante(String idEstudiante) {
+		setTitle("Estudiante");
 		setModal(true);
 		//setSize(450,360);
 		/* Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
 		    setLocation(x, y);*/
-		setBounds(100, 100, 495, 388);
+		setBounds(100, 100, 573, 388);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -75,99 +77,101 @@ public class Estudiante extends JDialog {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(0, 0, 479, 312);
+		panel.setBounds(0, 0, 557, 312);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Matricula:");
-		lblNewLabel.setBounds(10, 94, 57, 14);
+		lblNewLabel.setBounds(10, 94, 71, 14);
 		panel.add(lblNewLabel);
 		
 		txtId = new JTextField();
-		txtId.setBounds(66, 91, 103, 20);
+		txtId.setBounds(91, 91, 124, 20);
 		panel.add(txtId);
 		txtId.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nombre:");
-		lblNewLabel_1.setBounds(10, 14, 57, 14);
+		lblNewLabel_1.setBounds(10, 14, 71, 14);
 		panel.add(lblNewLabel_1);
 		
 		txtNombre1 = new JTextField();
-		txtNombre1.setBounds(66, 11, 103, 20);
+		txtNombre1.setBounds(91, 11, 124, 20);
 		panel.add(txtNombre1);
 		txtNombre1.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Segundo Nombre:");
-		lblNewLabel_2.setBounds(208, 14, 103, 14);
+		lblNewLabel_2.setBounds(294, 14, 119, 14);
 		panel.add(lblNewLabel_2);
 		
 		txtNombre2 = new JTextField();
-		txtNombre2.setBounds(321, 11, 124, 20);
+		txtNombre2.setBounds(423, 11, 124, 20);
 		panel.add(txtNombre2);
 		txtNombre2.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Apellido:");
-		lblNewLabel_3.setBounds(10, 55, 46, 14);
+		lblNewLabel_3.setBounds(10, 55, 71, 14);
 		panel.add(lblNewLabel_3);
 		
 		txtApellido1 = new JTextField();
-		txtApellido1.setBounds(66, 52, 103, 20);
+		txtApellido1.setBounds(91, 52, 124, 20);
 		panel.add(txtApellido1);
 		txtApellido1.setColumns(10);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Segundo Apellido:");
-		lblNewLabel_2_1.setBounds(208, 55, 103, 14);
+		lblNewLabel_2_1.setBounds(294, 55, 119, 14);
 		panel.add(lblNewLabel_2_1);
 		
 		txtApellido2 = new JTextField();
-		txtApellido2.setBounds(321, 52, 124, 20);
+		txtApellido2.setBounds(423, 52, 124, 20);
 		panel.add(txtApellido2);
 		txtApellido2.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Carrera:");
-		lblNewLabel_4.setBounds(208, 94, 46, 14);
+		lblNewLabel_4.setBounds(294, 94, 119, 14);
 		panel.add(lblNewLabel_4);
 		
 		txtCarrera = new JTextField();
-		txtCarrera.setBounds(264, 91, 163, 20);
+		txtCarrera.setBounds(423, 91, 124, 20);
 		panel.add(txtCarrera);
 		txtCarrera.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Categoria de Pago:");
-		lblNewLabel_5.setBounds(10, 259, 103, 14);
+		lblNewLabel_5.setBounds(10, 259, 133, 14);
 		panel.add(lblNewLabel_5);
 		
 		cbxCategoriaPago = new JComboBox();
 		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"TRA", "EFE"}));
-		cbxCategoriaPago.setBounds(123, 255, 129, 22);
+		cbxCategoriaPago.setBounds(153, 255, 129, 22);
 		panel.add(cbxCategoriaPago);
 		
 		JLabel lblNewLabel_6 = new JLabel("Nacionalidad:");
-		lblNewLabel_6.setBounds(10, 132, 78, 14);
+		lblNewLabel_6.setBounds(10, 132, 103, 14);
 		panel.add(lblNewLabel_6);
 		
 		txtNacionalidad = new JTextField();
-		txtNacionalidad.setBounds(91, 129, 266, 20);
+		txtNacionalidad.setBounds(123, 129, 266, 20);
 		panel.add(txtNacionalidad);
 		txtNacionalidad.setColumns(10);
 		
 		JLabel lblNewLabel_7 = new JLabel("Dirección:");
-		lblNewLabel_7.setBounds(10, 178, 67, 14);
+		lblNewLabel_7.setBounds(10, 178, 78, 14);
 		panel.add(lblNewLabel_7);
 		
-		txtDireccion = new JTextField();
-		txtDireccion.setBounds(91, 175, 266, 20);
-		panel.add(txtDireccion);
-		txtDireccion.setColumns(10);
-		
 		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento:");
-		lblNewLabel_8.setBounds(10, 218, 114, 14);
+		lblNewLabel_8.setBounds(10, 218, 124, 14);
 		panel.add(lblNewLabel_8);
 		
 		txtFechaNacimiento = new JTextField();
 		txtFechaNacimiento.setBounds(143, 215, 219, 20);
 		panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
+		
+		//JTextArea txtDireccion = new JTextArea();
+		//txtDireccion.setBounds(66, 173, 245, 22);
+		//panel.add(txtDireccion);
+		txtDireccion = new JTextArea();
+        txtDireccion.setBounds(91, 173, 245, 22);
+        panel.add(txtDireccion);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -315,6 +319,12 @@ public class Estudiante extends JDialog {
 	                           txtDireccion.setText(direccion);
 	                           //String fechanacim = (String) rs.getObject(9);
 	                           //txtFechaNacimiento.setText(fechanacim);
+	                           java.sql.Date fechaSql = rs.getDate("FechaNacimiento");
+	   	                    if (fechaSql != null) {
+	   	                        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fecha.format(fechaSql);
+	   	                        txtFechaNacimiento.setText(fechaFormateada);
+	   	                    }
 	                           if(((String) rs.getObject(10))!=null) {
 	                           if(((String) rs.getObject(10)).equalsIgnoreCase("TRA")) {
 	                        	   cbxCategoriaPago.setSelectedIndex(0);
@@ -330,7 +340,4 @@ public class Estudiante extends JDialog {
 	        System.out.println("Error en la conexión");
 	    }
 	}
-	
-	
-
 }

@@ -133,6 +133,7 @@ public class ListarEstudiantes extends JDialog {
 		                } else {
 		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
 		                }
+		                actualizarTablaEstudiante(table);
 					}
 				});
 				buttonPane.add(btnNewButton);
