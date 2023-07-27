@@ -42,6 +42,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Inicio.class.getResource("/Images/inicio.png")));
 		setBackground(new Color(255, 255, 255));
 		setTitle("Inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,9 +62,9 @@ public class Inicio extends JFrame {
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton.setSelectedIcon(null);
-		btnNewButton.setBackground(Color.LIGHT_GRAY);
+		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setIcon(new ImageIcon(Inicio.class.getResource("/Images/examen2.png")));
+		btnNewButton.setIcon(new ImageIcon(Inicio.class.getResource("/Images/examen5.png")));
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -78,6 +79,7 @@ public class Inicio extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.setIcon(new ImageIcon(Inicio.class.getResource("/Images/calendario3.png")));
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -93,7 +95,8 @@ public class Inicio extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("");
-		btnNewButton_3.setIcon(new ImageIcon(Inicio.class.getResource("/Images/Boton.png")));
+		btnNewButton_3.setBackground(new Color(255, 255, 255));
+		btnNewButton_3.setIcon(new ImageIcon(Inicio.class.getResource("/Images/Boton1.png")));
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -115,6 +118,7 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_1.setIcon(new ImageIcon(Inicio.class.getResource("/Images/estudiante4.png")));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -132,7 +136,8 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		JButton btnNewButton_4 = new JButton("");
-		btnNewButton_4.setIcon(new ImageIcon(Inicio.class.getResource("/Images/inscripcion1.png")));
+		btnNewButton_4.setBackground(new Color(255, 255, 255));
+		btnNewButton_4.setIcon(new ImageIcon(Inicio.class.getResource("/Images/inscripcion3.png")));
 		btnNewButton_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Asignatura dialog = new Asignatura(null);
@@ -155,6 +160,7 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_3_1);
 		
 		JButton btnNewButton_5 = new JButton("");
+		btnNewButton_5.setIcon(new ImageIcon(Inicio.class.getResource("/Images/clase1.png")));
 		btnNewButton_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CrearModificarGrupos dialog = new CrearModificarGrupos(null, null);
@@ -163,7 +169,7 @@ public class Inicio extends JFrame {
 		});
 		btnNewButton_5.setForeground(Color.WHITE);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_5.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_5.setBackground(new Color(255, 255, 255));
 		btnNewButton_5.setBounds(310, 85, 173, 175);
 		contentPane.add(btnNewButton_5);
 		
@@ -178,6 +184,7 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_3_1_1_1);
 		
 		JButton btnNewButton_5_1 = new JButton("");
+		btnNewButton_5_1.setIcon(new ImageIcon(Inicio.class.getResource("/Images/foto2.png")));
 		btnNewButton_5_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Estudiante dialog = new Estudiante(null);
@@ -186,11 +193,12 @@ public class Inicio extends JFrame {
 		});
 		btnNewButton_5_1.setForeground(Color.WHITE);
 		btnNewButton_5_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_5_1.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_5_1.setBackground(new Color(255, 255, 255));
 		btnNewButton_5_1.setBounds(56, 85, 173, 175);
 		contentPane.add(btnNewButton_5_1);
 		
 		JButton btnNewButton_5_2 = new JButton("");
+		btnNewButton_5_2.setIcon(new ImageIcon(Inicio.class.getResource("/Images/programar2.png")));
 		btnNewButton_5_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ListarPeriodoAcademico dialog = new ListarPeriodoAcademico();
@@ -199,7 +207,7 @@ public class Inicio extends JFrame {
 		});
 		btnNewButton_5_2.setForeground(Color.WHITE);
 		btnNewButton_5_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnNewButton_5_2.setBackground(Color.LIGHT_GRAY);
+		btnNewButton_5_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_5_2.setBounds(772, 359, 173, 175);
 		contentPane.add(btnNewButton_5_2);
 		
