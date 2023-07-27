@@ -21,6 +21,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class PeriodoAcademico extends JDialog {
 
@@ -53,15 +56,22 @@ public class PeriodoAcademico extends JDialog {
 	 * Create the dialog.
 	 */
 	public PeriodoAcademico() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(PeriodoAcademico.class.getResource("/Images/calendario3.png")));
 		setTitle("Periodo Académico");
 		setModal(true);
-		setBounds(100, 100, 469, 547);
+		setSize(469, 547);
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		    int x = (screenSize.width - getWidth()) / 2;
+		    int y = (screenSize.height - getHeight()-30) / 2;
+		    setLocation(x, y);
+		//setBounds(100, 100, 469, 547);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 0, 460, 471);
 		contentPanel.add(panel);
@@ -158,6 +168,7 @@ public class PeriodoAcademico extends JDialog {
 		panel.add(txtNotas);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

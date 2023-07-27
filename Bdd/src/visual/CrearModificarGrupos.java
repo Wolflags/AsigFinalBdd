@@ -37,6 +37,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
+import java.awt.Color;
 
 public class CrearModificarGrupos extends JDialog {
 
@@ -64,6 +65,7 @@ public class CrearModificarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearModificarGrupos(String asignatura, String periodo) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CrearModificarGrupos.class.getResource("/Images/examen2.png")));
 		setTitle("Grupo");
 		setModal(true);
 		setSize(422, 490);
@@ -72,13 +74,14 @@ public class CrearModificarGrupos extends JDialog {
 		    int y = (screenSize.height - getHeight()-30) / 2;
 		    setLocation(x, y);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(new Color(255, 255, 255));
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNewLabel = new JLabel("Nuevo Grupo");
 			lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
-			lblNewLabel.setBounds(74, 11, 257, 58);
+			lblNewLabel.setBounds(94, 11, 257, 58);
 			contentPanel.add(lblNewLabel);
 		}
 		{
@@ -156,6 +159,7 @@ public class CrearModificarGrupos extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

@@ -30,6 +30,9 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.TitledBorder;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class ListarAsignatura extends JDialog {
 
@@ -54,15 +57,22 @@ public class ListarAsignatura extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarAsignatura() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarAsignatura.class.getResource("/Images/Boton.png")));
 		setTitle("Asignaturas");
 		setModal(true);
-		setBounds(100, 100, 764, 450);
+		setSize(764, 450);
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		    int x = (screenSize.width - getWidth()) / 2;
+		    int y = (screenSize.height - getHeight()-30) / 2;
+		    setLocation(x, y);
+		//setBounds(100, 100, 764, 450);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(255, 255, 255));
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(0, 0, 748, 378);
 			setLocationRelativeTo(null);
@@ -116,6 +126,7 @@ public class ListarAsignatura extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

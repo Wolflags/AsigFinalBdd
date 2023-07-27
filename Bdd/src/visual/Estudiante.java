@@ -30,6 +30,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class Estudiante extends JDialog {
 
@@ -62,26 +63,28 @@ public class Estudiante extends JDialog {
 	 * Create the dialog.
 	 */
 	public Estudiante(String idEstudiante) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Estudiante.class.getResource("/Images/estudiante4.png")));
 		setTitle("Estudiante");
 		setModal(true);
-		//setSize(450,360);
-		/* Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(573,388);
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
-		    setLocation(x, y);*/
-		setBounds(100, 100, 573, 388);
+		    setLocation(x, y);
+		//setBounds(100, 100, 573, 388);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 0, 557, 312);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Matricula:");
+		JLabel lblNewLabel = new JLabel("Matrícula:");
 		lblNewLabel.setBounds(10, 94, 71, 14);
 		panel.add(lblNewLabel);
 		
@@ -168,10 +171,12 @@ public class Estudiante extends JDialog {
 		
 		
 		txtDireccion = new JTextArea();
+		txtDireccion.setBackground(new Color(192, 192, 192));
         txtDireccion.setBounds(91, 173, 245, 22);
         panel.add(txtDireccion);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

@@ -27,6 +27,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class Asignatura extends JDialog {
 
@@ -55,15 +58,22 @@ public class Asignatura extends JDialog {
 	 * Create the dialog.
 	 */
 	public Asignatura(String codAsignatura) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Asignatura.class.getResource("/Images/Boton.png")));
 		setTitle("Asignaturas");
 		setModal(true);
-		setBounds(100, 100, 519, 226);
+		setSize(519, 226);
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		    int x = (screenSize.width - getWidth()) / 2;
+		    int y = (screenSize.height - getHeight()-30) / 2;
+		    setLocation(x, y);
+		//setBounds(100, 100, 519, 226);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 0, 503, 151);
 		contentPanel.add(panel);
 		panel.setLayout(null);
@@ -111,6 +121,7 @@ public class Asignatura extends JDialog {
 		panel.add(practica);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

@@ -31,6 +31,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.Color;
 
 public class ListarGrupos extends JDialog {
 
@@ -56,6 +57,7 @@ public class ListarGrupos extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarGrupos() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarGrupos.class.getResource("/Images/examen2.png")));
 		setTitle("Grupos");
 		setModal(true);
 		setSize(806, 488);
@@ -69,6 +71,7 @@ public class ListarGrupos extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 0, 790, 412);
 		contentPanel.add(panel);
@@ -93,6 +96,7 @@ public class ListarGrupos extends JDialog {
 		scrollPane.setViewportView(table);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

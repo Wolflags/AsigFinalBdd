@@ -29,6 +29,9 @@ import logico.ConexionDB;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 public class ListarPeriodoAcademico extends JDialog {
 
@@ -53,15 +56,22 @@ public class ListarPeriodoAcademico extends JDialog {
 	 * Create the dialog.
 	 */
 	public ListarPeriodoAcademico() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListarPeriodoAcademico.class.getResource("/Images/calendario3.png")));
 		setTitle("Periodo Académico");
 		setModal(true);
-		setBounds(100, 100, 1339, 517);
+		setSize(1339, 517);
+		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		    int x = (screenSize.width - getWidth()) / 2;
+		    int y = (screenSize.height - getHeight()-30) / 2;
+		    setLocation(x, y);
+		//setBounds(100, 100, 1339, 517);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(255, 255, 255));
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(0, 0, 1323, 441);
 			setLocationRelativeTo(null);
@@ -115,6 +125,7 @@ public class ListarPeriodoAcademico extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
