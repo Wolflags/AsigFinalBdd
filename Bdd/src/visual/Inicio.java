@@ -31,6 +31,7 @@ public class Inicio extends JFrame {
 				try {
 					Inicio frame = new Inicio();
 					frame.setVisible(true);
+					//Y que e
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
