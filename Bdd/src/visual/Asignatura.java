@@ -74,6 +74,7 @@ public class Asignatura extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 0, 503, 213);
 		contentPanel.add(panel);
@@ -84,6 +85,9 @@ public class Asignatura extends JDialog {
 		panel.add(lblNewLabel);
 		
 		txtcodAsig = new JTextField();
+		if(codAsignatura!=null) {
+			txtcodAsig.setEditable(false);
+		}
 		txtcodAsig.setBounds(157, 76, 193, 20);
 		panel.add(txtcodAsig);
 		txtcodAsig.setColumns(10);
@@ -133,11 +137,21 @@ public class Asignatura extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("Agregar");
+				if(codAsignatura!=null) {
+					okButton = new JButton("Modificar");
+				}
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						insertarAsignatura();
-						JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-						dispose();
+						if(codAsignatura==null) {
+							insertarAsignatura();
+							JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}else {
+							updateAsignatura(codAsignatura);
+							JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+						}
+						
 					}
 				});
 				okButton.setActionCommand("OK");
