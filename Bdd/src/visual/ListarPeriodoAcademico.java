@@ -131,6 +131,20 @@ public class ListarPeriodoAcademico extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnModificar = new JButton("Modificar");
+				btnModificar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						int selectedRow = table.getSelectedRow();
+		                if (selectedRow != -1) {
+		                    String idest = (String) table.getValueAt(selectedRow, 0);
+		                    PeriodoAcademico dialog = new PeriodoAcademico(idest);
+							dialog.setVisible(true);
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para modificar.");
+		                }
+		                actualizarTablaPeriodo(table);
+					}
+					
+				});
 				btnModificar.setActionCommand("OK");
 				buttonPane.add(btnModificar);
 			}

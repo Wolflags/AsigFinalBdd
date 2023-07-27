@@ -15,6 +15,10 @@ import logico.ConexionDB;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
@@ -45,7 +49,7 @@ public class PeriodoAcademico extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			PeriodoAcademico dialog = new PeriodoAcademico();
+			PeriodoAcademico dialog = new PeriodoAcademico(null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -56,7 +60,7 @@ public class PeriodoAcademico extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public PeriodoAcademico() {
+	public PeriodoAcademico(String idPeriodoAcademico) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(PeriodoAcademico.class.getResource("/Images/calendario3.png")));
 		setTitle("Periodo Académico");
 		setModal(true);
@@ -179,6 +183,7 @@ public class PeriodoAcademico extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
+				if(idPeriodoAcademico==null) {
 				JButton btnAgregar = new JButton("Agregar");
 				btnAgregar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -190,6 +195,20 @@ public class PeriodoAcademico extends JDialog {
 				btnAgregar.setActionCommand("OK");
 				buttonPane.add(btnAgregar);
 				getRootPane().setDefaultButton(btnAgregar);
+				}else{
+					JButton btnNewButton = new JButton("Modificar");
+					btnNewButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							
+							updatePeriodo(idPeriodoAcademico);
+							JOptionPane.showMessageDialog(null, "Los datos se actualizaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+							dispose();
+							}
+							
+						
+					});
+					buttonPane.add(btnNewButton);
+				}
 			}
 			{
 				JButton btnRegresar = new JButton("Regresar");
@@ -201,6 +220,9 @@ public class PeriodoAcademico extends JDialog {
 				buttonPane.add(btnRegresar);
 			}
 		}
+		if(idPeriodoAcademico!=null) {
+			cargarPeriodo(idPeriodoAcademico);
+			}
 	}
 	public void insertarPeriodoAca() {
 	    Connection con = ConexionDB.getConnection();
@@ -267,6 +289,111 @@ public class PeriodoAcademico extends JDialog {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+	public void updatePeriodo(String periodo) {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	        try {
+	            String sql = "UPDATE PeriodoAcademico SET CodPeriodoAcad = ?, Descripcion = ?, FechaInicio = ?, FechaFin = ?, FechaInicioClases = ?, FechaFinClases = ?, FechaLimitePago = ?, FechaLimitePrematricula = ?, FechaLimiteRetiro = ?, FechaLimitePublicacionCalif = ? WHERE CodPeriodoAcad='" + periodo + "'";
+	            PreparedStatement ps = con.prepareStatement(sql);
+
+	            ps.setString(1, txtPeriodoAca.getText());
+	            ps.setString(2, txtDescripcion.getText());
+	           
+	            
+	            //Convertir fecha inicio a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate = dateFormat.parse(txtFechaIni.getText());
+	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	            ps.setDate(3, sqlDate);
+	            
+	            // Convertir la fecha fin a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate1 = dateFormat1.parse(txtFechaFin.getText());
+	            java.sql.Date sqlDate1 = new java.sql.Date(utilDate1.getTime());
+	            ps.setDate(4, sqlDate1);
+	            
+	            // Convertir la fecha de inicio de clases a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate2 = dateFormat2.parse(txtIniClases.getText());
+	            java.sql.Date sqlDate2 = new java.sql.Date(utilDate2.getTime());
+	            ps.setDate(5, sqlDate2);
+	            
+	            // Convertir la fecha de fin de clases a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate3 = dateFormat3.parse(txtFinClases.getText());
+	            java.sql.Date sqlDate3 = new java.sql.Date(utilDate3.getTime());
+	            ps.setDate(6, sqlDate3);
+
+	            // Convertir la fecha limite de pago a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat4 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate4 = dateFormat4.parse(txtLimitePago.getText());
+	            java.sql.Date sqlDate4 = new java.sql.Date(utilDate4.getTime());
+	            ps.setDate(7, sqlDate4);
+
+	            // Convertir la fecha limite de prematricula a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat5 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate5 = dateFormat5.parse(txtLimitePrematricula.getText());
+	            java.sql.Date sqlDate5 = new java.sql.Date(utilDate5.getTime());
+	            ps.setDate(8, sqlDate5);
+
+	            // Convertir la fecha limite retiro a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat6 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate6 = dateFormat6.parse(txtLimiteRetiro.getText());
+	            java.sql.Date sqlDate6 = new java.sql.Date(utilDate6.getTime());
+	            ps.setDate(9, sqlDate6);
+	            
+	            // Convertir la fecha de entrega de notas a un objeto java.sql.Date
+	            SimpleDateFormat dateFormat7 = new SimpleDateFormat("yyyy-MM-dd");
+	            java.util.Date utilDate7 = dateFormat7.parse(txtNotas.getText());
+	            java.sql.Date sqlDate7 = new java.sql.Date(utilDate7.getTime());
+	            ps.setDate(10, sqlDate7);
+
+	           
+
+	            ps.executeUpdate();
+
+	            ps.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        System.out.println("Error en la conexión");
+	    }
+	}
+	
+	public void cargarPeriodo(String periodo) {
+	    Connection con = ConexionDB.getConnection();
+
+	    if (con != null) {
+	            String sql = "SELECT CodPeriodoAcad, Descripcion, FechaInicio, FechaFin, FechaInicioClases, FechaFinClases, FechaLimitePago, FechaLimitePrematricula, FechaLimiteRetiro, FechaLimitePublicacionCalif FROM PeriodoAcademico WHERE CodPeriodoAcad='" + periodo + "'";
+	            try (Statement stmt = con.createStatement();
+	                    ResultSet rs = stmt.executeQuery(sql)) {
+	                   ResultSetMetaData rsmd = rs.getMetaData();
+	                   
+	                   while (rs.next()) {
+	                       
+	                           String academico = (String) rs.getObject(1);
+	                           txtPeriodoAca.setText(academico);
+	                           String descripcion = (String) rs.getObject(2);
+	                           txtDescripcion.setText(descripcion);
+	                         
+	                          
+	                           java.sql.Date fechaSql = rs.getDate("Fecha Inicio");
+	   	                    if (fechaSql != null) {
+	   	                        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fecha.format(fechaSql);
+	   	                     txtFechaIni.setText(fechaFormateada);
+	   	                    }
+	                          
+	                   }
+	               } catch (SQLException e) {
+	                   e.printStackTrace();
+	               }
 	    } else {
 	        System.out.println("Error en la conexión");
 	    }

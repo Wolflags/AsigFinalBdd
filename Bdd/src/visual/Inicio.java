@@ -64,7 +64,7 @@ public class Inicio extends JFrame {
 		btnNewButton.setSelectedIcon(null);
 		btnNewButton.setBackground(new Color(255, 255, 255));
 		btnNewButton.setForeground(Color.WHITE);
-		btnNewButton.setIcon(new ImageIcon(Inicio.class.getResource("/Images/examen5.png")));
+		btnNewButton.setIcon(null);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +85,7 @@ public class Inicio extends JFrame {
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Crea una nueva instancia de tu JDialog
-				PeriodoAcademico dialog = new PeriodoAcademico();
+				PeriodoAcademico dialog = new PeriodoAcademico(null);
 				dialog.setVisible(true);//Muestra el JDialog
 				//Cierra el JFrame actual
 				
