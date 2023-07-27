@@ -383,36 +383,54 @@ public class PeriodoAcademico extends JDialog {
 	                           txtDescripcion.setText(descripcion);
 	                         
 	                          
-	                           java.sql.Date fechaSql = rs.getDate("Fecha Inicio:");
+	                           java.sql.Date fechaSql = rs.getDate("FechaInicio");
 	   	                    if (fechaSql != null) {
 	   	                        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fecha.format(fechaSql);
 	   	                     txtFechaIni.setText(fechaFormateada);
 	   	                    }
 	                          
-	   	                 java.sql.Date fechafin = rs.getDate("Fecha Fin:");
+	   	                 java.sql.Date fechafin = rs.getDate("FechaFin");
 	   	                    if (fechafin != null) {
 	   	                        SimpleDateFormat fechaf = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fechaf.format(fechafin);
 	   	                     txtFechaFin.setText(fechaFormateada);
 	   	                    }
-	   	                 java.sql.Date fechainicioC = rs.getDate("Inicio de Clases:");
+	   	                 java.sql.Date fechainicioC = rs.getDate("FechaInicioClases");
 	   	                    if (fechainicioC != null) {
 	   	                        SimpleDateFormat fechaini = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fechaini.format(fechainicioC);
 	   	                     txtIniClases.setText(fechaFormateada);
 	   	                    }
-	   	                 java.sql.Date fechafinC = rs.getDate("Fin de Clases:");
+	   	                 java.sql.Date fechafinC = rs.getDate("FechaFinClases");
 	   	                    if (fechafinC != null) {
 	   	                        SimpleDateFormat fechafini = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fechafini.format(fechafinC);
 	   	                     txtFinClases.setText(fechaFormateada);
 	   	                    }
-	   	                 java.sql.Date fechaPago = rs.getDate("Fecha Límite de Pago:");
+	   	                 java.sql.Date fechaPago = rs.getDate("FechaLimitePago");
 	   	                    if (fechaPago != null) {
 	   	                        SimpleDateFormat fechapag = new SimpleDateFormat("yyyy-MM-dd");
 	   	                        String fechaFormateada = fechapag.format(fechaPago);
 	   	                     txtLimitePago.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechaPrema = rs.getDate("FechaLimitePrematricula");
+	   	                    if (fechaPrema != null) {
+	   	                        SimpleDateFormat fechapre = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechapre.format(fechaPrema);
+	   	                     txtLimitePrematricula.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechaRetiro = rs.getDate("FechaLimiteRetiro");
+	   	                    if (fechaRetiro != null) {
+	   	                        SimpleDateFormat fechare = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechare.format(fechaRetiro);
+	   	                     txtLimiteRetiro.setText(fechaFormateada);
+	   	                    }
+	   	                 java.sql.Date fechaNotas = rs.getDate("FechaLimitePublicacionCalif");
+	   	                    if (fechaNotas != null) {
+	   	                        SimpleDateFormat fechanotas = new SimpleDateFormat("yyyy-MM-dd");
+	   	                        String fechaFormateada = fechanotas.format(fechaNotas);
+	   	                     txtNotas.setText(fechaFormateada);
 	   	                    }
 	                   }
 	               } catch (SQLException e) {
