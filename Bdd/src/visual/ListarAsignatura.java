@@ -49,7 +49,7 @@ public class ListarAsignatura extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -222,7 +222,7 @@ public class ListarAsignatura extends JDialog {
                 // Asigna el modelo a la tabla
                 table.setModel(model);
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");

@@ -60,7 +60,7 @@ public class CrearModificarGrupos extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -238,7 +238,7 @@ public class CrearModificarGrupos extends JDialog {
                     comboBox.addItem(rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -284,7 +284,7 @@ public class CrearModificarGrupos extends JDialog {
 	            
 	            insertarDetallesGrupo(codG,tabla);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Error");
 	        }
 	    } else {
 	        System.out.println("Error en la conexión");
@@ -409,7 +409,7 @@ public class CrearModificarGrupos extends JDialog {
 		        }
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error");
 			}
 	        
 	    
@@ -428,7 +428,7 @@ public class CrearModificarGrupos extends JDialog {
                     txtPeriodo.setText(rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -458,7 +458,7 @@ public class CrearModificarGrupos extends JDialog {
                 	llenarTablaHorarios(tabla,numGrupo);
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -528,7 +528,7 @@ public class CrearModificarGrupos extends JDialog {
 	            
 	            actualizarDetallesGrupo(numGrupo,tabla);
 	        } catch (Exception e) {
-	            e.printStackTrace();
+	            JOptionPane.showMessageDialog(null, "Error");
 	        }
 	    } else {
 	        System.out.println("Error en la conexión");

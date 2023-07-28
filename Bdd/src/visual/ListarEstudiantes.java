@@ -49,7 +49,7 @@ public class ListarEstudiantes extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -153,39 +153,39 @@ public class ListarEstudiantes extends JDialog {
 					btnNewButton_1.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
 							 int selectedRow = table.getSelectedRow();
-
+							 if (selectedRow != -1) {
 						        
 						        String id = table.getValueAt(selectedRow, 0).toString();
 						        String nombre = table.getValueAt(selectedRow, 1).toString();
 						        String carrera = table.getValueAt(selectedRow, 2).toString();
 						        HorarioEstudiante dialog = new HorarioEstudiante(id,nombre,carrera);
 								dialog.setVisible(true);
-
+							 }else {
+								 JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila.");
+							 }
 						}
 					});
 					buttonPane.add(btnNewButton_1);
 				}
+				{
+					JButton btnNewButton_2 = new JButton("Inscritas");
+					btnNewButton_2.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int selectedRow = table.getSelectedRow();
+							 if (selectedRow != -1) {
+						        
+						        String id = table.getValueAt(selectedRow, 0).toString();
+						        String nombre = table.getValueAt(selectedRow, 1).toString();
+						        Inscritas dialog = new Inscritas(id,nombre);
+								dialog.setVisible(true);
+							 }else {
+								 JOptionPane.showMessageDialog(null, "Por favor, selecciona una fila.");
+							 }
+						}
+					});
+					buttonPane.add(btnNewButton_2);
+				}
 				buttonPane.add(btnNewButton);
-			}
-			{
-				  JButton okButton = new JButton("Eliminar");
-				  okButton.addActionListener(new ActionListener() {
-				  	public void actionPerformed(ActionEvent e) {
-				  		int selectedRow = table.getSelectedRow();
-		                if (selectedRow != -1) {
-		                    String id = (String) table.getValueAt(selectedRow, 0);
-		                    deleteFrom(id);
-		                } else {
-		                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
-		                }
-		                actualizarTablaEstudiante(table);
-				  	}
-				  });
-				    
-				
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
 			}
 			{
 				JButton cancelButton = new JButton("Regresar");
@@ -198,6 +198,22 @@ public class ListarEstudiantes extends JDialog {
 				        dispose();
 					}
 				});
+				{
+					JButton btnNewButton_3 = new JButton("Eliminar");
+					btnNewButton_3.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							int selectedRow = table.getSelectedRow();
+			                if (selectedRow != -1) {
+			                    String id = (String) table.getValueAt(selectedRow, 0);
+			                    deleteFrom(id);
+			                } else {
+			                    JOptionPane.showMessageDialog(null, "Selecciona una fila para eliminar.");
+			                }
+			                actualizarTablaEstudiante(table);
+						}
+					});
+					buttonPane.add(btnNewButton_3);
+				}
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -245,7 +261,7 @@ public class ListarEstudiantes extends JDialog {
                 // Asigna el modelo a la tabla
                 table.setModel(model);
             } catch (SQLException e) {
-                e.printStackTrace();
+            	JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -268,7 +284,7 @@ public class ListarEstudiantes extends JDialog {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar el registro: " + ex.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro");
         }
 	}
 

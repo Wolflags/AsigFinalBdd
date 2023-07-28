@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import logico.ConexionDB;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -49,7 +51,7 @@ public class HorarioEstudiante extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -200,7 +202,7 @@ public class HorarioEstudiante extends JDialog {
 		    HorarioReducido();
 
 		} catch (SQLException e) {
-		    e.printStackTrace();
+		    JOptionPane.showMessageDialog(null, "Error");
 		}
         } else {
             System.out.println("Error en la conexión");
@@ -219,7 +221,7 @@ public class HorarioEstudiante extends JDialog {
                     comboBox.addItem(rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -244,7 +246,7 @@ public class HorarioEstudiante extends JDialog {
 	    txtFormatoReducido.setText(result);
 
 	} catch (SQLException e) {
-	    e.printStackTrace();
+	    JOptionPane.showMessageDialog(null, "Error");
 	}
 	}
 	

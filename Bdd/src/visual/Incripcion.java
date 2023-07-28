@@ -47,7 +47,7 @@ public class Incripcion extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -221,7 +221,7 @@ public class Incripcion extends JDialog {
                     JOptionPane.showMessageDialog(null, "El estudiante se ha inscrito correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException e) {
-                    System.out.println(e.getMessage());
+                	JOptionPane.showMessageDialog(null, "Error");
                 }
             }
 
@@ -255,7 +255,7 @@ public class Incripcion extends JDialog {
                     txtPeriodo=(rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+            	JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");

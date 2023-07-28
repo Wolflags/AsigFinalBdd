@@ -50,7 +50,7 @@ public class SeleccionarGrupo extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 
@@ -232,7 +232,7 @@ public class SeleccionarGrupo extends JDialog {
 			actualizarTabla(table);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error");
 		}
 	}
 	public static void actualizarTabla(JTable table) {
@@ -271,7 +271,7 @@ public class SeleccionarGrupo extends JDialog {
                 // Asigna el modelo a la tabla
                 table.setModel(model);
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -309,7 +309,7 @@ public class SeleccionarGrupo extends JDialog {
                     comboBox.addItem(rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
@@ -328,7 +328,7 @@ public class SeleccionarGrupo extends JDialog {
                     txtPeriodo = (rs.getString("CodPeriodoAcad"));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error");
             }
         } else {
             System.out.println("Error en la conexión");
