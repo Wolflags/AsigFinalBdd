@@ -41,11 +41,13 @@ public class Estudiante extends JDialog {
 	private JTextField txtNombre2;
 	private JTextField txtApellido1;
 	private JTextField txtApellido2;
-	private JTextField txtCarrera;
-	private JTextField txtNacionalidad;
 	private JTextField txtFechaNacimiento;
 	private JTextArea txtDireccion;
 	JComboBox cbxCategoriaPago = new JComboBox();
+	JComboBox cbxCarrera = new JComboBox();
+	JComboBox cbxNacionalidad = new JComboBox();
+	private JTextField txtNacionalidad;
+	private JTextField txtCarrera;
 
 	/**
 	 * Launch the application.
@@ -67,7 +69,7 @@ public class Estudiante extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Estudiante.class.getResource("/Images/estudiante4.png")));
 		setTitle("Estudiante");
 		setModal(true);
-		setSize(573,468);
+		setSize(573,508);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		    int x = (screenSize.width - getWidth()) / 2;
 		    int y = (screenSize.height - getHeight()-30) / 2;
@@ -81,7 +83,7 @@ public class Estudiante extends JDialog {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(0, 0, 557, 392);
+		panel.setBounds(0, 0, 557, 432);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
@@ -134,52 +136,52 @@ public class Estudiante extends JDialog {
 		lblNewLabel_4.setBounds(294, 177, 119, 14);
 		panel.add(lblNewLabel_4);
 		
-		txtCarrera = new JTextField();
-		txtCarrera.setBounds(423, 174, 124, 20);
-		panel.add(txtCarrera);
-		txtCarrera.setColumns(10);
-		
 		JLabel lblNewLabel_5 = new JLabel("Categoria de Pago:");
-		lblNewLabel_5.setBounds(10, 342, 133, 14);
+		lblNewLabel_5.setBounds(10, 384, 133, 14);
 		panel.add(lblNewLabel_5);
 		
 		cbxCategoriaPago = new JComboBox();
 		cbxCategoriaPago.setModel(new DefaultComboBoxModel(new String[] {"TRA", "EFE"}));
-		cbxCategoriaPago.setBounds(153, 338, 129, 22);
+		cbxCategoriaPago.setBounds(153, 380, 129, 22);
 		panel.add(cbxCategoriaPago);
 		
 		JLabel lblNewLabel_6 = new JLabel("Nacionalidad:");
 		lblNewLabel_6.setBounds(10, 215, 103, 14);
 		panel.add(lblNewLabel_6);
 		
-		txtNacionalidad = new JTextField();
-		txtNacionalidad.setBounds(123, 212, 266, 20);
-		panel.add(txtNacionalidad);
-		txtNacionalidad.setColumns(10);
-		
 		JLabel lblNewLabel_7 = new JLabel("Dirección:");
 		lblNewLabel_7.setBounds(10, 261, 78, 14);
 		panel.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Fecha de Nacimiento:");
-		lblNewLabel_8.setBounds(10, 301, 124, 14);
+		lblNewLabel_8.setBounds(10, 343, 124, 14);
 		panel.add(lblNewLabel_8);
 		
 		txtFechaNacimiento = new JTextField();
-		txtFechaNacimiento.setBounds(143, 298, 219, 20);
+		txtFechaNacimiento.setBounds(143, 340, 219, 20);
 		panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
 		
 		
 		txtDireccion = new JTextArea();
-		txtDireccion.setBackground(new Color(192, 192, 192));
-        txtDireccion.setBounds(91, 256, 245, 22);
+		txtDireccion.setBackground(new Color(225, 225, 225));
+        txtDireccion.setBounds(91, 256, 439, 76);
         panel.add(txtDireccion);
         
         JLabel lblNewLabel_9 = new JLabel("Estudiante");
         lblNewLabel_9.setFont(new Font("Times New Roman", Font.PLAIN, 50));
         lblNewLabel_9.setBounds(169, 11, 322, 54);
         panel.add(lblNewLabel_9);
+        
+        txtNacionalidad = new JTextField();
+        txtNacionalidad.setBounds(91, 212, 124, 20);
+        panel.add(txtNacionalidad);
+        txtNacionalidad.setColumns(10);
+        
+        txtCarrera = new JTextField();
+        txtCarrera.setColumns(10);
+        txtCarrera.setBounds(423, 174, 124, 20);
+        panel.add(txtCarrera);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));
@@ -343,6 +345,10 @@ public class Estudiante extends JDialog {
 	   	                        String fechaFormateada = fecha.format(fechaSql);
 	   	                        txtFechaNacimiento.setText(fechaFormateada);
 	   	                    }
+	   	                 String valor = (String) rs.getObject(10);
+
+	   	              
+
 	                           if(((String) rs.getObject(10))!=null) {
 	                           if(((String) rs.getObject(10)).equalsIgnoreCase("TRA")) {
 	                        	   cbxCategoriaPago.setSelectedIndex(0);
