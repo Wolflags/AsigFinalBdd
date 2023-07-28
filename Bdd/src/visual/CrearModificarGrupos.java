@@ -224,6 +224,7 @@ public class CrearModificarGrupos extends JDialog {
 		}else {
 			getPeriodoAcademico();
 		}
+		getPeriodoAcademico();
 	}
 	
 	public void llenarComboBox(JComboBox<String> comboBox) {
@@ -420,7 +421,7 @@ public class CrearModificarGrupos extends JDialog {
 	public String getPeriodoAcademico() {
 		Connection con = ConexionDB.getConnection();
         if (con != null) {
-            String sql = "SELECT DISTINCT TOP 1 CodPeriodoAcad FROM Grupo";
+            String sql = "SELECT DISTINCT TOP 1 CodPeriodoAcad FROM PeriodoAcademico";
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 // Llena el comboBox con los periodos académicos
@@ -436,6 +437,8 @@ public class CrearModificarGrupos extends JDialog {
         return null;
 		
 	}
+	
+	
 	
 	public void cargarDatos(JTable tabla, String numGrupo) {
         Connection con = ConexionDB.getConnection();

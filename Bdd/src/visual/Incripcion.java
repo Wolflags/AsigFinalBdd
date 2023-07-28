@@ -191,9 +191,6 @@ public class Incripcion extends JDialog {
 				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						// Crea una nueva instancia de tu JDialog
-				        Inicio dialog = new Inicio();
-				        dialog.setVisible(true); // Muestra el JDialog
 				        // Cierra el JFrame actual
 				        dispose();
 					}
@@ -218,12 +215,13 @@ public class Incripcion extends JDialog {
                     pstmt.setString(3, (String) gruposInsc.getValueAt(i, 2));
                     pstmt.setString(4, (String) gruposInsc.getValueAt(i, 0));
                     int rowsAffected = pstmt.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "El estudiante se ha inscrito correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                    
 
                 } catch (SQLException e) {
                 	JOptionPane.showMessageDialog(null, "Error");
                 }
             }
+        	JOptionPane.showMessageDialog(null, "El estudiante se ha inscrito correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             System.out.println("Error en la conexión");
