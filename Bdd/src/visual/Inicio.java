@@ -237,7 +237,7 @@ public class Inicio extends JFrame {
 		JButton btnNewButton_5_2_1 = new JButton("");
 		btnNewButton_5_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 			}
 		});
 		btnNewButton_5_2_1.setForeground(Color.WHITE);
@@ -246,9 +246,9 @@ public class Inicio extends JFrame {
 		btnNewButton_5_2_1.setBounds(833, 354, 173, 175);
 		contentPane.add(btnNewButton_5_2_1);
 		
-		JLabel lblNewLabel_3_1_1_2_1 = new JLabel("Inscritas");
+		JLabel lblNewLabel_3_1_1_2_1 = new JLabel("Salir");
 		lblNewLabel_3_1_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3_1_1_2_1.setBounds(885, 545, 109, 14);
+		lblNewLabel_3_1_1_2_1.setBounds(897, 545, 109, 14);
 		contentPane.add(lblNewLabel_3_1_1_2_1);
 		
 	}
