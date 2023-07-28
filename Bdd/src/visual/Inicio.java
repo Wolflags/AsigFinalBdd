@@ -76,7 +76,7 @@ public class Inicio extends JFrame {
 		       
 			}
 		});
-		btnNewButton.setBounds(310, 354, 173, 175);
+		btnNewButton.setBounds(214, 354, 173, 175);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_2 = new JButton("");
@@ -92,7 +92,7 @@ public class Inicio extends JFrame {
 				
 			}
 		});
-		btnNewButton_2.setBounds(772, 85, 173, 175);
+		btnNewButton_2.setBounds(624, 85, 173, 175);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("");
@@ -105,17 +105,17 @@ public class Inicio extends JFrame {
 				dialog.setVisible(true);
 			}
 		});
-		btnNewButton_3.setBounds(542, 359, 173, 175);
+		btnNewButton_3.setBounds(419, 354, 173, 175);
 		contentPane.add(btnNewButton_3);
 		
 		JLabel lblNewLabel_1 = new JLabel("Asignaturas");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(574, 545, 111, 14);
+		lblNewLabel_1.setBounds(451, 545, 111, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nuevo Periodo");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_2.setBounds(802, 272, 164, 14);
+		lblNewLabel_2.setBounds(654, 272, 164, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JButton btnNewButton_1 = new JButton("");
@@ -128,12 +128,12 @@ public class Inicio extends JFrame {
 				
 			}
 		});
-		btnNewButton_1.setBounds(56, 354, 173, 175);
+		btnNewButton_1.setBounds(10, 354, 173, 175);
 		contentPane.add(btnNewButton_1);
 		
 		JLabel lblNewLabel_3 = new JLabel("Estudiantes");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3.setBounds(90, 545, 109, 14);
+		lblNewLabel_3.setBounds(44, 545, 109, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		JButton btnNewButton_4 = new JButton("");
@@ -147,17 +147,17 @@ public class Inicio extends JFrame {
 				
 			}
 		});
-		btnNewButton_4.setBounds(542, 85, 173, 175);
+		btnNewButton_4.setBounds(419, 85, 173, 175);
 		contentPane.add(btnNewButton_4);
 		
 		JLabel lblNewLabel_4 = new JLabel("Nueva Asignatura");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_4.setBounds(563, 272, 164, 14);
+		lblNewLabel_4.setBounds(440, 272, 164, 14);
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_3_1 = new JLabel("Grupos");
 		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3_1.setBounds(363, 545, 109, 14);
+		lblNewLabel_3_1.setBounds(267, 545, 109, 14);
 		contentPane.add(lblNewLabel_3_1);
 		
 		JButton btnNewButton_5 = new JButton("");
@@ -171,17 +171,17 @@ public class Inicio extends JFrame {
 		btnNewButton_5.setForeground(Color.WHITE);
 		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_5.setBackground(new Color(255, 255, 255));
-		btnNewButton_5.setBounds(310, 85, 173, 175);
+		btnNewButton_5.setBounds(214, 85, 173, 175);
 		contentPane.add(btnNewButton_5);
 		
 		JLabel lblNewLabel_3_1_1 = new JLabel("Nuevo Grupo");
 		lblNewLabel_3_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3_1_1.setBounds(349, 271, 109, 14);
+		lblNewLabel_3_1_1.setBounds(253, 271, 109, 14);
 		contentPane.add(lblNewLabel_3_1_1);
 		
 		JLabel lblNewLabel_3_1_1_1 = new JLabel("Nuevo Estudiante");
 		lblNewLabel_3_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3_1_1_1.setBounds(77, 271, 173, 14);
+		lblNewLabel_3_1_1_1.setBounds(31, 271, 173, 14);
 		contentPane.add(lblNewLabel_3_1_1_1);
 		
 		JButton btnNewButton_5_1 = new JButton("");
@@ -195,7 +195,7 @@ public class Inicio extends JFrame {
 		btnNewButton_5_1.setForeground(Color.WHITE);
 		btnNewButton_5_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_5_1.setBackground(new Color(255, 255, 255));
-		btnNewButton_5_1.setBounds(56, 85, 173, 175);
+		btnNewButton_5_1.setBounds(10, 85, 173, 175);
 		contentPane.add(btnNewButton_5_1);
 		
 		JButton btnNewButton_5_2 = new JButton("");
@@ -209,13 +209,47 @@ public class Inicio extends JFrame {
 		btnNewButton_5_2.setForeground(Color.WHITE);
 		btnNewButton_5_2.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnNewButton_5_2.setBackground(new Color(255, 255, 255));
-		btnNewButton_5_2.setBounds(772, 359, 173, 175);
+		btnNewButton_5_2.setBounds(624, 354, 173, 175);
 		contentPane.add(btnNewButton_5_2);
 		
 		JLabel lblNewLabel_3_1_1_2 = new JLabel("Periodos");
 		lblNewLabel_3_1_1_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_3_1_1_2.setBounds(829, 545, 109, 14);
+		lblNewLabel_3_1_1_2.setBounds(681, 545, 109, 14);
 		contentPane.add(lblNewLabel_3_1_1_2);
+		
+		JButton btnNewButton_2_1 = new JButton("");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Incripcion dialog = new Incripcion();
+				dialog.setVisible(true);
+			}
+		});
+		btnNewButton_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_2_1.setBackground(Color.WHITE);
+		btnNewButton_2_1.setBounds(833, 85, 173, 175);
+		contentPane.add(btnNewButton_2_1);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Inscripción");
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_2_1.setBounds(874, 272, 164, 14);
+		contentPane.add(lblNewLabel_2_1);
+		
+		JButton btnNewButton_5_2_1 = new JButton("");
+		btnNewButton_5_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton_5_2_1.setForeground(Color.WHITE);
+		btnNewButton_5_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnNewButton_5_2_1.setBackground(Color.WHITE);
+		btnNewButton_5_2_1.setBounds(833, 354, 173, 175);
+		contentPane.add(btnNewButton_5_2_1);
+		
+		JLabel lblNewLabel_3_1_1_2_1 = new JLabel("Inscritas");
+		lblNewLabel_3_1_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblNewLabel_3_1_1_2_1.setBounds(885, 545, 109, 14);
+		contentPane.add(lblNewLabel_3_1_1_2_1);
 		
 	}
 }

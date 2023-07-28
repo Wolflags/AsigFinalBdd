@@ -231,7 +231,7 @@ public class CrearModificarGrupos extends JDialog {
 	public void llenarComboBox(JComboBox<String> comboBox) {
         Connection con = ConexionDB.getConnection();
         if (con != null) {
-            String sql = "SELECT DISTINCT CodPeriodoAcad FROM Grupo";
+            String sql = "SELECT DISTINCT CodPeriodoAcad FROM PeriodoAcademico";
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {

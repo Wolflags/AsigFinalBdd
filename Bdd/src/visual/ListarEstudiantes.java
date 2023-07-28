@@ -148,6 +148,23 @@ public class ListarEstudiantes extends JDialog {
 		                actualizarTablaEstudiante(table);
 					}
 				});
+				{
+					JButton btnNewButton_1 = new JButton("Horario");
+					btnNewButton_1.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
+							 int selectedRow = table.getSelectedRow();
+
+						        
+						        String id = table.getValueAt(selectedRow, 0).toString();
+						        String nombre = table.getValueAt(selectedRow, 1).toString();
+						        String carrera = table.getValueAt(selectedRow, 2).toString();
+						        HorarioEstudiante dialog = new HorarioEstudiante(id,nombre,carrera);
+								dialog.setVisible(true);
+
+						}
+					});
+					buttonPane.add(btnNewButton_1);
+				}
 				buttonPane.add(btnNewButton);
 			}
 			{
