@@ -107,7 +107,6 @@ public class CrearModificarGrupos extends JDialog {
 		}
 		{
 			txtAsignatura = new JTextField();
-			txtAsignatura.setEditable(false);
 			txtAsignatura.setText(asignatura);
 			txtAsignatura.setBounds(127, 156, 183, 20);
 			contentPanel.add(txtAsignatura);
@@ -188,7 +187,6 @@ public class CrearModificarGrupos extends JDialog {
 						}else {
 						insertarGrupo(Horarios);
 						
-						JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 						}
 					}else {
@@ -283,6 +281,8 @@ public class CrearModificarGrupos extends JDialog {
 	            ps.close();
 	            
 	            insertarDetallesGrupo(codG,tabla);
+
+				JOptionPane.showMessageDialog(null, "Los datos se insertaron correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 	        } catch (Exception e) {
 	            JOptionPane.showMessageDialog(null, "Error");
 	        }
