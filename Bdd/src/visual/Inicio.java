@@ -218,6 +218,7 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_3_1_1_2);
 		
 		JButton btnNewButton_2_1 = new JButton("");
+		btnNewButton_2_1.setIcon(new ImageIcon(Inicio.class.getResource("/Images/registro1.png")));
 		btnNewButton_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Incripcion dialog = new Incripcion();
@@ -235,6 +236,7 @@ public class Inicio extends JFrame {
 		contentPane.add(lblNewLabel_2_1);
 		
 		JButton btnNewButton_5_2_1 = new JButton("");
+		btnNewButton_5_2_1.setIcon(new ImageIcon(Inicio.class.getResource("/Images/salida1.png")));
 		btnNewButton_5_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();

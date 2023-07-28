@@ -29,6 +29,7 @@ import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import java.awt.Color;
 
 public class HorarioEstudiante extends JDialog {
 
@@ -65,13 +66,14 @@ public class HorarioEstudiante extends JDialog {
 		contentPanel.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255));
 		panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(0, 0, 927, 557);
 		contentPanel.add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Horario de Clases");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 44));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 44));
 		lblNewLabel.setBounds(302, 29, 418, 54);
 		panel.add(lblNewLabel);
 		
@@ -133,6 +135,7 @@ public class HorarioEstudiante extends JDialog {
 		panel.add(cmbPeriodo);
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);

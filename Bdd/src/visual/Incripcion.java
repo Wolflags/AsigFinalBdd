@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import logico.ConexionDB;
+import java.awt.Color;
 
 public class Incripcion extends JDialog {
 
@@ -54,6 +55,7 @@ public class Incripcion extends JDialog {
 	 * Create the dialog.
 	 */
 	public Incripcion() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Incripcion.class.getResource("/Images/registro1.png")));
 		setModal(true);
 		setSize(806, 488);
 		 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -66,13 +68,14 @@ public class Incripcion extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(new Color(255, 255, 255));
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panel.setBounds(0, 0, 790, 412);
 			contentPanel.add(panel);
 			panel.setLayout(null);
 			{
-				JLabel inscripcion = new JLabel("Inscripcion");
-				inscripcion.setFont(new Font("Tahoma", Font.PLAIN, 42));
+				JLabel inscripcion = new JLabel("Inscripción");
+				inscripcion.setFont(new Font("Times New Roman", Font.PLAIN, 42));
 				inscripcion.setBounds(297, 11, 230, 69);
 				panel.add(inscripcion);
 			}
@@ -104,7 +107,7 @@ public class Incripcion extends JDialog {
 				txtNombre.setColumns(10);
 			}
 			{
-				JLabel lblNewLabel_1 = new JLabel("Matricula:");
+				JLabel lblNewLabel_1 = new JLabel("Matrícula:");
 				lblNewLabel_1.setBounds(49, 91, 73, 14);
 				panel.add(lblNewLabel_1);
 			}
@@ -165,6 +168,7 @@ public class Incripcion extends JDialog {
 		}
 		{
 			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(255, 255, 255));
 			buttonPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
