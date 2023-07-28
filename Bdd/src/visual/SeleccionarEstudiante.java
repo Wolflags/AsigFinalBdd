@@ -185,23 +185,20 @@ public class SeleccionarEstudiante extends JDialog {
         	String sql = "SELECT E.Id,(SELECT * FROM dbo.FormatoNombre(E.Id)) AS Nombre , E.Carrera, E.CategoriaPago AS 'Categoria de Pago', E.Nacionalidad, E.Direccion, E.FechaNacimiento AS 'Fecha de Nacimiento' FROM Estudiante E";
 
         	if (!estudiante.isEmpty()) {
-        	    // Si el campo estudiante no está vacío, agregamos la condición de búsqueda
+        	    
         	    sql += " WHERE Id LIKE '%" + estudiante + "%' OR Nombre1 LIKE '%" + estudiante + "%' OR Nombre2 LIKE '%" + estudiante + "%' OR Apellido1 LIKE '%" + estudiante + "%' OR Apellido2 LIKE '%" + estudiante + "%'";
         	}
 
         
             try (Statement stmt = con.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
-                // Obtén los metadatos del ResultSet
+                
                 ResultSetMetaData rsmd = rs.getMetaData();
-                // El modelo de la tabla
                 DefaultTableModel model = new DefaultTableModel();
-                // Llena el modelo con los nombres de las columnas
                 int columnCount = rsmd.getColumnCount();
                 for (int i = 1; i <= columnCount; i++) {
                     model.addColumn(rsmd.getColumnName(i));
                 }
-                // Llena el modelo con los registros
                 while (rs.next()) {
                     Object[] row = new Object[columnCount];
                     for (int i = 1; i <= columnCount; i++) {

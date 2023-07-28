@@ -125,29 +125,19 @@ public class SeleccionarGrupo extends JDialog {
 		                    Connection con = ConexionDB.getConnection();
 		                    if (con != null) {
 		                    	
-		                        String sql = "SELECT NumGrupo,CodAsignatura,Horario,CupoGrupo FROM Grupo WHERE NumGrupo = '"+Id+"'";
+		                        String sql = "SELECT G.NumGrupo,G.Horario,A.CodAsignatura,A.Nombre,G.CupoGrupo FROM Grupo G, Asignatura A WHERE G.NumGrupo = '"+Id+"' AND G.CodAsignatura=A.CodAsignatura";
 		               
 		                        try (Statement stmt = con.createStatement();
 		                             ResultSet rs = stmt.executeQuery(sql)) {
-		                            // Obtén los metadatos del ResultSet
-		                            ResultSetMetaData rsmd = rs.getMetaData();
-		                            // El modelo de la tabla
-		                            DefaultTableModel model = new DefaultTableModel();
-		                            // Llena el modelo con los nombres de las columnas
-		                            int columnCount = rsmd.getColumnCount();
-		                            for (int i = 1; i <= columnCount; i++) {
-		                                model.addColumn(rsmd.getColumnName(i));
+		                        	if (rs.next()) {
+		                                DefaultTableModel model = (DefaultTableModel) Incripcion.gruposInsc.getModel();
+
+		                                Object[] newRow = {rs.getString("NumGrupo"), rs.getString("Horario"), rs.getString("CodAsignatura"),rs.getString("Nombre"),rs.getString("CupoGrupo")};
+		                                model.addRow(newRow);
+
+		                                Incripcion.gruposInsc.setModel(model);
+		                                dispose();
 		                            }
-		                            // Llena el modelo con los registros
-		                            while (rs.next()) {
-		                                Object[] row = new Object[columnCount];
-		                                for (int i = 1; i <= columnCount; i++) {
-		                                    row[i - 1] = rs.getObject(i);
-		                                }
-		                                model.addRow(row);
-		                            }
-		                            // Asigna el modelo a la tabla
-		                            Incripcion.gruposInsc.setModel(model);
 		                        } catch (SQLException e1) {
 		                            e1.printStackTrace();
 		                        }
