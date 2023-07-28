@@ -14,12 +14,16 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
 
 public class Incripcion extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
+	public static JTextField txtNombre;
+	public static JTextField txtMatricula;
+	public static JTable gruposInsc;
 
 	/**
 	 * Launch the application.
@@ -64,6 +68,9 @@ public class Incripcion extends JDialog {
 				JScrollPane scrollPane = new JScrollPane();
 				scrollPane.setBounds(49, 136, 585, 265);
 				panel.add(scrollPane);
+				
+				gruposInsc = new JTable();
+				scrollPane.setViewportView(gruposInsc);
 			}
 			{
 				JLabel lblNewLabel = new JLabel("Nombre:");
@@ -71,11 +78,11 @@ public class Incripcion extends JDialog {
 				panel.add(lblNewLabel);
 			}
 			{
-				textField = new JTextField();
-				textField.setEditable(false);
-				textField.setBounds(318, 88, 316, 20);
-				panel.add(textField);
-				textField.setColumns(10);
+				txtNombre = new JTextField();
+				txtNombre.setEditable(false);
+				txtNombre.setBounds(318, 88, 316, 20);
+				panel.add(txtNombre);
+				txtNombre.setColumns(10);
 			}
 			{
 				JLabel lblNewLabel_1 = new JLabel("Matricula:");
@@ -83,14 +90,20 @@ public class Incripcion extends JDialog {
 				panel.add(lblNewLabel_1);
 			}
 			{
-				textField_1 = new JTextField();
-				textField_1.setEditable(false);
-				textField_1.setBounds(121, 88, 112, 20);
-				panel.add(textField_1);
-				textField_1.setColumns(10);
+				txtMatricula = new JTextField();
+				txtMatricula.setEditable(false);
+				txtMatricula.setBounds(121, 88, 112, 20);
+				panel.add(txtMatricula);
+				txtMatricula.setColumns(10);
 			}
 			{
 				JButton btnNewButton = new JButton("Seleccionar");
+				btnNewButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						SeleccionarEstudiante dialog = new SeleccionarEstudiante();
+						dialog.setVisible(true);
+					}
+				});
 				btnNewButton.setBounds(644, 87, 121, 23);
 				panel.add(btnNewButton);
 			}
@@ -128,5 +141,4 @@ public class Incripcion extends JDialog {
 			}
 		}
 	}
-
 }
