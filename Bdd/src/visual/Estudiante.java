@@ -32,6 +32,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JScrollPane;
 
 public class Estudiante extends JDialog {
 
@@ -161,12 +162,6 @@ public class Estudiante extends JDialog {
 		txtFechaNacimiento.setBounds(143, 340, 219, 20);
 		panel.add(txtFechaNacimiento);
 		txtFechaNacimiento.setColumns(10);
-		
-		
-		txtDireccion = new JTextArea();
-		txtDireccion.setBackground(new Color(225, 225, 225));
-        txtDireccion.setBounds(91, 256, 439, 76);
-        panel.add(txtDireccion);
         
         JLabel lblNewLabel_9 = new JLabel("Estudiante");
         lblNewLabel_9.setFont(new Font("Times New Roman", Font.PLAIN, 50));
@@ -182,6 +177,15 @@ public class Estudiante extends JDialog {
         txtCarrera.setColumns(10);
         txtCarrera.setBounds(423, 174, 124, 20);
         panel.add(txtCarrera);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(82, 250, 439, 69);
+        panel.add(scrollPane);
+        
+        
+        txtDireccion = new JTextArea();
+        scrollPane.setViewportView(txtDireccion);
+        txtDireccion.setBackground(new Color(225, 225, 225));
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setBackground(new Color(255, 255, 255));
